@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Lesson Quiz: {{ quiz.title }} — Roadshub{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1.5rem;">
+    <a href="{{ url_for('main.view_lesson', course_id=lesson.course_id, lesson_id=lesson.id) }}" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; font-weight: 600;">
+        &larr; Return to Lesson Content
+    </a>
+</div>
+
+<div class="quiz-container" style="max-width: 800px; margin: 0 auto;">
+    <div class="app-card" style="margin-bottom: 2rem; border-left: 5px solid var(--primary-orange);">
+        <span class="badge-pill badge-orange">Auto-Graded MCQ</span>
+        <h1 style="font-size: 1.75rem; color: var(--bg-dark); font-family: var(--font-headings); margin-top: 0.5rem;">{{ quiz.title }}</h1>
+        <p style="color: var(--text-dark-muted); font-size: 0.9rem;">Course: <strong>{{ lesson.course.title }}</strong> | Lesson: {{ lesson.title }}</p>
+        <p style="font-size: 0.85rem; color: var(--text-dark-muted); margin-top: 0.25rem;">Passing Score requirement: <strong>{{ quiz.passing_score }}%</strong></p>
+    </div>
+
+    <form action="{{ url_for('main.submit_quiz', course_id=lesson.course_id, lesson_id=lesson.id) }}" method="POST">
+        {% for question in quiz.questions %}
+            <div class="app-card" style="margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; color: var(--bg-dark); font-size: 1.05rem; display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span style="color: var(--primary-orange);">Q{{ loop.index }}.</span>
+                    <span>{{ question.question_text }}</span>
+                </div>
+                
+                <div class="options-group" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    {% for option in question.options %}
+                        <label class="option-label" style="display: flex; align-items: center; gap: 0.75rem; padding: 12px 16px; background-color: var(--bg-light); border: 1px solid rgba(15, 23, 42, 0.08); border-radius: 8px; cursor: pointer; transition: background-color 0.2s;">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ option.id }}" required style="accent-color: var(--primary-orange); width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.92rem; color: var(--text-dark);">{{ option.option_text }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        
+        <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+            <button type="submit" class="btn-primary" style="font-size: 1rem; padding: 12px 28px;">
+                Submit Answers for Grading &rarr;
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+/* Option hover styling */
+.option-label:hover {
+    background-color: rgba(245, 124, 0, 0.04) !important;
+    border-color: rgba(245, 124, 0, 0.15) !important;
+}
+</style>
+{% endblock %}

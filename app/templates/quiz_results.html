@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Grading Results — Roadshub{% endblock %}
+
+{% block content %}
+<div class="results-container" style="max-width: 800px; margin: 0 auto;">
+    
+    <!-- Header results card -->
+    <div class="app-card" style="margin-bottom: 2rem; text-align: center; border-top: 5px solid {% if attempt.passed %}#10b981{% else %}#ef4444{% endif %};">
+        {% if attempt.passed %}
+            <span class="badge-pill badge-teal" style="margin: 0 auto 0.75rem;">PASSED</span>
+            <h1 style="font-size: 2rem; color: #10b981; font-family: var(--font-headings);">Congratulations! You Passed</h1>
+            <p style="color: var(--text-dark-muted); font-size: 0.95rem; margin-top: 0.5rem;">You have demonstrated proficiency for this lesson module.</p>
+        {% else %}
+            <span class="badge-pill" style="margin: 0 auto 0.75rem; background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">FAIL</span>
+            <h1 style="font-size: 2rem; color: #ef4444; font-family: var(--font-headings);">Review Needed</h1>
+            <p style="color: var(--text-dark-muted); font-size: 0.95rem; margin-top: 0.5rem;">Review the lesson notes and try again to unlock the next sequencing module.</p>
+        {% endif %}
+        
+        <div style="margin: 2rem 0; display: flex; justify-content: center; gap: 3rem;">
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: var(--bg-dark);">{{ attempt.score }}%</div>
+                <div style="font-size: 0.8rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Your Score</div>
+            </div>
+            <div style="border-right: 1px solid var(--border-color-light);"></div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: var(--text-dark-muted);">{{ quiz.passing_score }}%</div>
+                <div style="font-size: 0.8rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Required Pass</div>
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="{{ url_for('main.view_lesson', course_id=lesson.course_id, lesson_id=lesson.id) }}" class="btn-secondary">
+                &larr; Back to Lesson Content
+            </a>
+            {% if not attempt.passed %}
+                <a href="{{ url_for('main.view_quiz', course_id=lesson.course_id, lesson_id=lesson.id) }}" class="btn-primary">
+                    Retry Quiz
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <h3 style="font-family: var(--font-headings); font-size: 1.2rem; color: var(--bg-dark); margin-bottom: 1.25rem;">Question Feedback & Explanations</h3>
+    
+    {% for question in quiz.questions %}
+        {% set user_choice_id = user_answers.get(question.id | string) %}
+        <div class="app-card" style="margin-bottom: 1.5rem;">
+            <div style="font-weight: 700; color: var(--bg-dark); font-size: 1.05rem; display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <span style="color: var(--primary-orange);">Q{{ loop.index }}.</span>
+                <span>{{ question.question_text }}</span>
+            </div>
+            
+            <div class="options-review" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                {% for option in question.options %}
+                    {% set is_selected = (option.id | string) == (user_choice_id | string) %}
+                    <div style="padding: 10px 14px; border-radius: 6px; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;
+                                background-color: {% if option.is_correct %}rgba(16, 185, 129, 0.08){% elif is_selected %}rgba(239, 68, 68, 0.08){% else %}var(--bg-light){% endif %};
+                                border: 1px solid {% if option.is_correct %}#10b981{% elif is_selected %}#ef4444{% else %}rgba(15, 23, 42, 0.06){% endif %};">
+                        
+                        <span style="color: {% if option.is_correct %}#065f46{% elif is_selected %}#991b1b{% else %}var(--text-dark){% endif %};">
+                            {{ option.option_text }}
+                        </span>
+                        
+                        <span>
+                            {% if option.is_correct %}
+                                <strong style="color: #10b981;">✔ Correct Choice</strong>
+                            {% elif is_selected %}
+                                <strong style="color: #ef4444;">❌ Your Choice</strong>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            {% if question.explanation %}
+                <div style="margin-top: 1rem; padding: 1rem; background-color: rgba(0, 188, 212, 0.04); border-left: 3px solid var(--accent-teal); border-radius: 4px; font-size: 0.88rem;">
+                    <strong style="color: var(--accent-teal); display: block; margin-bottom: 0.25rem;">Explanation:</strong>
+                    <span style="color: var(--text-dark-muted); line-height: 1.5;">{{ question.explanation }}</span>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

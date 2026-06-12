@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Roadshub — Professional Road Engineering Training{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://roadshub.org/wp-content/uploads/2024/06/Roadshub-Main-website-logo-001.png" />
+    
+    <!-- Google Fonts: Sora for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Link to the main app stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <!-- Top bar for Mobile Layout & Quick Actions -->
+    <header class="app-header">
+        <div class="header-left">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <a href="/" class="app-logo">
+                <span class="logo-accent">Roads</span>hub
+            </a>
+        </div>
+        
+        <div class="header-right">
+            {% if current_user.is_authenticated %}
+                <div class="user-pill">
+                    <span class="user-role-badge role-{{ current_user.role }}">
+                        {{ current_user.role | capitalize }}
+                    </span>
+                    <span class="user-name-desktop">{{ current_user.first_name }} {{ current_user.last_name }}</span>
+                    {% if current_user.profile_image_url %}
+                        <img src="{{ current_user.profile_image_url }}" alt="Profile" class="avatar-sm">
+                    {% else %}
+                        <div class="avatar-sm avatar-placeholder">
+                            {{ current_user.first_name[0] }}{{ current_user.last_name[0] }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <a href="{{ url_for('main.login') }}" class="btn-login-nav">Log In</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Collapsible Sidebar -->
+        <aside class="app-sidebar" id="appSidebar">
+            <!-- Sidebar Header for Desktop -->
+            <div class="sidebar-brand">
+                <div class="brand-text">
+                    <span class="text-orange">Roads</span>hub
+                </div>
+                <div class="brand-subtitle">African Infrastructure Academy</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <!-- Global / Common Links -->
+                <div class="nav-section-title">Navigation</div>
+                <a href="/" class="nav-item {% if request.endpoint == 'main.index' %}active{% endif %}">
+                    <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span class="nav-label">Home Website</span>
+                </a>
+                
+                {% if current_user.is_authenticated %}
+                    <!-- STUDENT NAVIGATION MENU -->
+                    {% if current_user.is_student or current_user.is_admin %}
+                        <div class="nav-section-title">Student Portal</div>
+                        <a href="{{ url_for('main.student_dashboard') }}" class="nav-item {% if request.endpoint == 'main.student_dashboard' %}active{% endif %}">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                            <span class="nav-label">My Dashboard</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            <span class="nav-label">Course Library</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span class="nav-label">Active Cohorts</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                            <span class="nav-label">Certificates</span>
+                        </a>
+                    {% endif %}
+
+                    <!-- INSTRUCTOR NAVIGATION MENU -->
+                    {% if current_user.is_instructor or current_user.is_admin %}
+                        <div class="nav-section-title">Instructor Portal</div>
+                        <a href="{{ url_for('main.instructor_dashboard') }}" class="nav-item {% if request.endpoint == 'main.instructor_dashboard' %}active{% endif %}">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span class="nav-label">Instructor Hub</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <span class="nav-label">Manage Courses</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.3-2-1.8-3.6-3.8-3.9-2.3-.4-4.3.9-5 2.8-.7-1.9-2.7-3.2-5-2.8-2 .3-3.5 1.9-3.8 3.9-.3 1.4 0 2.7.7 3.9L12 22l9.2-7z"></path></svg>
+                            <span class="nav-label">Cohorts & Grading</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            <span class="nav-label">Upload Materials</span>
+                        </a>
+                    {% endif %}
+
+                    <!-- ADMIN NAVIGATION MENU -->
+                    {% if current_user.is_admin %}
+                        <div class="nav-section-title">Admin Console</div>
+                        <a href="{{ url_for('main.admin_dashboard') }}" class="nav-item {% if request.endpoint == 'main.admin_dashboard' %}active{% endif %}">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            <span class="nav-label">Admin Panel</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line><line x1="9" y1="11" x2="15" y2="11"></line><line x1="9" y1="18" x2="10" y2="18"></line></svg>
+                            <span class="nav-label">Course Approvals</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span class="nav-label">User Access Rules</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            <span class="nav-label">Revenue Overview</span>
+                        </a>
+                    {% endif %}
+                {% endif %}
+
+                <!-- Utility links -->
+                <div class="nav-section-title">Support</div>
+                <a href="#" class="nav-item">
+                    <svg viewBox="0 0 24 24" class="nav-icon" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span class="nav-label">Help Center</span>
+                </a>
+                
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.logout') }}" class="nav-item logout-item">
+                        <svg viewBox="0 0 24 24" class="nav-icon text-orange" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        <span class="nav-label text-orange">Log Out</span>
+                    </a>
+                {% endif %}
+            </nav>
+            
+            <!-- Sidebar Footer: Collapsible Button & Language -->
+            <div class="sidebar-footer">
+                <button class="collapse-toggle-btn" id="collapseSidebarBtn" aria-label="Collapse Navigation">
+                    <svg class="chevron-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span class="collapse-text">Collapse Menu</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Sidebar Backdrop for Mobile overlay -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- Main Content Area -->
+        <main class="app-main" id="main">
+            <!-- Flash Message System -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-container">
+                        {% for category, message in messages %}
+                            <div class="flash-toast toast-{{ category }}" role="alert">
+                                <span class="toast-message">{{ message }}</span>
+                                <button class="toast-close-btn" onclick="this.parentElement.remove()" aria-label="Close message">×</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Collapsible Sidebar Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const collapseBtn = document.getElementById('collapseSidebarBtn');
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const body = document.body;
+
+            // Persistent sidebar status on desktop
+            const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (sidebarCollapsed && window.innerWidth >= 992) {
+                sidebar.classList.add('collapsed');
+                body.classList.add('sidebar-collapsed-active');
+            }
+
+            // Toggle Sidebar for Mobile
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('mobile-open');
+                    backdrop.classList.toggle('active');
+                });
+            }
+
+            // Close mobile sidebar on clicking backdrop
+            if (backdrop) {
+                backdrop.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                    backdrop.classList.remove('active');
+                });
+            }
+
+            // Collapse Sidebar for Desktop
+            if (collapseBtn) {
+                collapseBtn.addEventListener('click', () => {
+                    const isCollapsed = sidebar.classList.toggle('collapsed');
+                    body.classList.toggle('sidebar-collapsed-active', isCollapsed);
+                    localStorage.setItem('sidebarCollapsed', isCollapsed);
+                });
+            }
+
+            // Close mobile sidebar on route clicks (for SPA or if transition lag)
+            const navItems = sidebar.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.remove('mobile-open');
+                        backdrop.classList.remove('active');
+                    }
+                });
+            });
+
+            // Adjust navigation states on window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 992) {
+                    sidebar.classList.remove('mobile-open');
+                    backdrop.classList.remove('active');
+                    if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                        sidebar.classList.add('collapsed');
+                        body.classList.add('sidebar-collapsed-active');
+                    }
+                } else {
+                    sidebar.classList.remove('collapsed');
+                    body.classList.remove('sidebar-collapsed-active');
+                }
+            });
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

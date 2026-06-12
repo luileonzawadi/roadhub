@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Instructor Dashboard — Roadshub{% endblock %}
+
+{% block content %}
+<div class="dashboard-header" style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2rem; color: var(--bg-dark);">Instructor Dashboard</h1>
+    <p style="color: var(--text-dark-muted);">Manage your curriculum files, track engineer progression, and publish lessons.</p>
+</div>
+
+<!-- Metrics Quick View -->
+<div class="dashboard-grid" style="margin-bottom: 2.5rem;">
+    <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
+        <div style="background-color: rgba(245, 124, 0, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: var(--primary-orange);">📚</div>
+        <div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ courses|length }}</div>
+            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Total Courses</div>
+        </div>
+    </div>
+    
+    <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
+        <div style="background-color: var(--accent-teal-glow); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: var(--accent-teal);">👷</div>
+        <div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ students_count }}</div>
+            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Enrolled Students</div>
+        </div>
+    </div>
+    
+    <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
+        <div style="background-color: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: #10b981;">🚀</div>
+        <div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">1</div>
+            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Active Cohorts</div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-sections" style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem;">
+    <!-- Course lists -->
+    <div class="left-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark);">My Courses</h3>
+            <button class="btn-primary" style="font-size: 0.82rem; padding: 6px 12px;">+ Create New Course</button>
+        </div>
+        
+        <div class="courses-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            {% for course in courses %}
+                <div class="app-card">
+                    <div class="card-header" style="align-items: center;">
+                        <div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+                                {% if course.is_published %}
+                                    <span class="badge-pill badge-teal">Published</span>
+                                {% else %}
+                                    <span class="badge-pill badge-grey">Draft</span>
+                                {% endif %}
+                                
+                                {% if course.is_approved %}
+                                    <span class="badge-pill badge-orange">Approved</span>
+                                {% else %}
+                                    <span class="badge-pill badge-grey" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">Pending Approval</span>
+                                {% endif %}
+                            </div>
+                            <h4 class="card-title" style="font-size: 1.25rem;">{{ course.title }}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-dark-muted); margin-top: 0.25rem;">Price: ${{ course.price }}</p>
+                        </div>
+                        {% if course.cover_image_url %}
+                            <img src="{{ course.cover_image_url }}" alt="Cover" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                        {% endif %}
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; color: var(--text-dark-muted); line-height: 1.5;">{{ course.description[:140] }}...</p>
+                    
+                    <div class="lesson-count-pill" style="font-size: 0.82rem; color: var(--bg-dark); font-weight: 600;">
+                        📖 Curriculum: {{ course.lessons|length }} Lessons created
+                    </div>
+                    
+                    <div style="display: flex; gap: 0.75rem; border-top: 1px solid var(--border-color-light); padding-top: 1rem; margin-top: 0.5rem;">
+                        <a href="#" class="btn-secondary" style="font-size: 0.82rem; padding: 6px 12px;">Edit Details</a>
+                        <a href="#" class="btn-secondary" style="font-size: 0.82rem; padding: 6px 12px;">Add Lesson Content</a>
+                        <a href="#" class="btn-secondary" style="font-size: 0.82rem; padding: 6px 12px;">Manage Cohorts</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="app-card" style="text-align: center; padding: 3rem 1.5rem;">
+                    <p style="color: var(--text-dark-muted); margin-bottom: 1.5rem;">You haven't initialized any training programs yet.</p>
+                    <button class="btn-primary" style="margin: 0 auto;">Build a Course Blueprint</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Right columns operations -->
+    <div class="right-section">
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">Developer Kit & Uploads</h3>
+        
+        <div class="app-card" style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--bg-dark); margin-bottom: 0.5rem;">Media & Assets</h4>
+            <p style="font-size: 0.82rem; color: var(--text-dark-muted); margin-bottom: 1rem;">Upload Civil 3D sheet templates, subassembly package files (.pkt), and course PDFs to Cloudinary storage.</p>
+            
+            <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <input type="file" class="form-control" style="font-size: 0.82rem; padding: 6px 10px;">
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%; font-size: 0.82rem; padding: 8px;" disabled>
+                    Upload Asset
+                </button>
+            </form>
+            <small style="display: block; font-size: 0.72rem; color: var(--text-dark-muted); margin-top: 0.5rem;">*Cloudinary backend handles parsing and asset url returning automatically.</small>
+        </div>
+        
+        <!-- Student lists metrics -->
+        <div class="app-card">
+            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--bg-dark); margin-bottom: 0.5rem;">Active Engineers Feedback</h4>
+            <p style="font-size: 0.82rem; color: var(--text-dark-muted); margin-bottom: 0.75rem;">View latest assignment submissions and grading reviews.</p>
+            <div style="font-size: 0.88rem; color: var(--text-dark-muted); padding: 0.5rem; text-align: center; background-color: var(--bg-light); border-radius: 6px;">
+                📭 No pending submissions for grade.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

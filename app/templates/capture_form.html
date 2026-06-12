@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Download ACP Study Guide — Roadshub{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h2 style="margin-bottom: 1rem;">Get Your Free ACP Study Guide</h2>
+    <p style="color: var(--text-dark-muted); margin-bottom: 2rem;">Enter your details below to download the definitive Autodesk Certified Professional Study Guide for Civil 3D.</p>
+
+    <form action="{{ url_for('main.capture_lead') }}" method="POST">
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">Full Name</label>
+            <input type="text" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">Email Address</label>
+            <input type="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">WhatsApp Number (e.g., +254712345678)</label>
+            <input type="text" name="phone_number" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem;">Area of Interest</label>
+            <select name="area_of_interest" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="Civil 3D & Corridor Modeling">Civil 3D & Corridor Modeling</option>
+                <option value="AutoCAD Fundamentals">AutoCAD Fundamentals</option>
+                <option value="InfraWorks">InfraWorks</option>
+            </select>
+        </div>
+        
+        <input type="hidden" name="source_tag" value="ACP_Study_Guide_Download">
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Download Now
+        </button>
+    </form>
+</div>
+{% endblock %}

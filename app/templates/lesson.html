@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.title }} — {{ course.title }} | Roadshub{% endblock %}
+
+{% block content %}
+<!-- Back to Dashboard -->
+<div style="margin-bottom: 1.5rem;">
+    <a href="{{ url_for('main.student_dashboard') }}" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; font-weight: 600;">
+        &larr; Back to My Dashboard
+    </a>
+</div>
+
+<div class="lesson-layout" style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 2rem; align-items: start;">
+    
+    <!-- Active Lesson Player -->
+    <div class="active-lesson-pane">
+        <div class="app-card" style="padding: 0; overflow: hidden; border-radius: 12px; border: 1px solid var(--border-color-light);">
+            <!-- Responsive Video Embed Wrapper -->
+            {% if lesson.video_url %}
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background-color: #000;">
+                    <iframe 
+                        src="{{ lesson.video_url }}" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            {% else %}
+                <div style="height: 320px; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 1.5rem; text-align: center;">
+                    <span style="font-size: 2.5rem; margin-bottom: 0.5rem;">🚧</span>
+                    <h3 style="color: white; font-family: var(--font-headings);">No Video Available</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem;">This lesson focuses on PDF downloads and manual readings.</p>
+                </div>
+            {% endif %}
+            
+            <div style="padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--bg-dark); font-family: var(--font-headings);">{{ lesson.title }}</h2>
+                    {% if progress and progress.is_completed %}
+                        <span class="badge-pill badge-teal" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                            ✔ Completed
+                        </span>
+                    {% else %}
+                        <span class="badge-pill badge-orange">In Progress</span>
+                    {% endif %}
+                </div>
+                
+                <p style="color: var(--text-dark-muted); line-height: 1.6; margin-bottom: 1.5rem;">{{ lesson.description }}</p>
+                
+                <hr style="border: none; border-top: 1px solid var(--border-color-light); margin: 1.5rem 0;">
+                
+                <h4 style="font-size: 1.1rem; color: var(--bg-dark); margin-bottom: 0.75rem;">Lesson Notes</h4>
+                <div style="color: var(--text-dark); line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem;">
+                    {{ lesson.content_text | safe }}
+                </div>
+                
+                <!-- Action bar (PDF downloads and Mark Complete) -->
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid var(--border-color-light); padding-top: 1.5rem;">
+                    
+                    <!-- PDF Manual Attachment -->
+                    {% if lesson.pdf_url %}
+                        <a href="{{ lesson.pdf_url }}" target="_blank" class="btn-secondary" style="font-size: 0.88rem;">
+                            📥 Download Course Files (PDF)
+                        </a>
+                    {% else %}
+                        <div style="font-size: 0.82rem; color: var(--text-dark-muted);">
+                            🗎 No additional attachment files for this lesson.
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Completion Submit -->
+                    {% if not (progress and progress.is_completed) %}
+                        <form action="{{ url_for('main.complete_lesson', lesson_id=lesson.id) }}" method="POST">
+                            <button type="submit" class="btn-primary">
+                                Mark Lesson as Completed
+                            </button>
+                        </form>
+                    {% else %}
+                        <button class="btn-primary" disabled style="background-color: #10b981; cursor: not-allowed;">
+                            Lesson Already Completed
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar Course Playlist -->
+    <div class="lesson-playlist">
+        <h3 style="font-family: var(--font-headings); font-size: 1.15rem; color: var(--bg-dark); margin-bottom: 1rem;">Course Syllabus</h3>
+        <div class="app-card" style="padding: 0; overflow: hidden; border-radius: 12px;">
+            <div style="background-color: var(--bg-dark-accent); color: white; padding: 1rem; font-weight: 600; font-size: 0.9rem;">
+                {{ course.title[:45] }}...
+            </div>
+            
+            <div class="playlist-items" style="display: flex; flex-direction: column;">
+                {% for les in lessons %}
+                    <a href="{{ url_for('main.view_lesson', course_id=course.id, lesson_id=les.id) }}" 
+                       style="display: flex; gap: 0.75rem; padding: 1rem; border-bottom: 1px solid var(--border-color-light); align-items: center; background-color: {% if les.id == lesson.id %}#f1f5f9{% else %}transparent{% endif %};"
+                       class="playlist-link">
+                        <div style="font-size: 0.88rem; font-weight: 700; color: {% if les.id == lesson.id %}var(--primary-orange){% else %}var(--text-dark-muted){% endif %}; width: 20px;">
+                            {{ "%02d" | format(les.order_index) }}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.88rem; font-weight: 600; color: var(--bg-dark);">
+                                {{ les.title }}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<style>
+/* CSS specificity override for active playlist hover styling */
+.playlist-link:hover {
+    background-color: #f8fafc !important;
+}
+</style>
+{% endblock %}

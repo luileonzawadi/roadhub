@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In — Roadshub Engineering Academy{% endblock %}
+
+{% block content %}
+<div class="auth-container" style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+    <div class="auth-form-card" style="width: 100%; max-width: 460px; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color-light);">
+        <h2 style="font-family: var(--font-headings); font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center; color: var(--bg-dark);">Welcome Back</h2>
+        <p style="color: var(--text-dark-muted); font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">Sign in to your Roadshub engineering training account</p>
+        
+        <form action="{{ url_for('main.login') }}" method="POST">
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="role" class="form-label" style="display: block; font-size: 0.88rem; font-weight: 600; color: var(--bg-dark); margin-bottom: 0.5rem;">Select Role Access</label>
+                <select id="role" name="role" class="form-control" style="width: 100%; padding: 12px; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: 6px; font-family: var(--font-body); font-size: 0.95rem;">
+                    <option value="student">Student Portal (Kofi Mensah)</option>
+                    <option value="instructor">Instructor Portal (Amadi Okonkwo)</option>
+                    <option value="admin">Admin System Console (Elena Toure)</option>
+                </select>
+                <small style="display: block; color: var(--text-dark-muted); font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.4;">
+                    *For training review, you can log in as any role immediately. The system will auto-seed mock dashboard items.
+                </small>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label class="form-label" style="display: block; font-size: 0.88rem; font-weight: 600; color: var(--bg-dark); margin-bottom: 0.5rem;">Password</label>
+                <input type="password" value="••••••••••••" class="form-control" disabled style="width: 100%; padding: 12px; background-color: #f1f5f9; border: 1px solid rgba(15, 23, 42, 0.1); border-radius: 6px; cursor: not-allowed;">
+            </div>
+            
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;">
+                Enter Dashboard &rarr;
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

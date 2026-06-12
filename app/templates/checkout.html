@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout — Roadshub{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h2 style="margin-bottom: 1rem;">Complete Your Enrollment</h2>
+    <p style="color: var(--text-dark-muted); margin-bottom: 2rem;">Course: <strong>{{ course.title }}</strong></p>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-size: 1.25rem;">
+        <span>Total Amount:</span>
+        <strong style="color: var(--primary-orange);">${{ course.price }}</strong>
+    </div>
+
+    <!-- M-Pesa Form -->
+    <div style="margin-bottom: 2rem; padding: 1.5rem; border: 1px solid #10b981; border-radius: 8px;">
+        <h3 style="color: #10b981; margin-bottom: 1rem;">Pay with M-Pesa</h3>
+        <form action="{{ url_for('main.checkout_mpesa', course_id=course.id) }}" method="POST">
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">M-Pesa Phone Number (e.g., 0712345678)</label>
+                <input type="text" name="phone_number" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="background-color: #10b981; border-color: #10b981; width: 100%;">
+                Send STK Push
+            </button>
+        </form>
+    </div>
+
+    <!-- Stripe Form -->
+    <div style="padding: 1.5rem; border: 1px solid #6366f1; border-radius: 8px;">
+        <h3 style="color: #6366f1; margin-bottom: 1rem;">Pay with Credit Card</h3>
+        <form action="{{ url_for('main.checkout_stripe', course_id=course.id) }}" method="POST">
+            <button type="submit" class="btn btn-primary" style="background-color: #6366f1; border-color: #6366f1; width: 100%;">
+                Proceed to Stripe Checkout
+            </button>
+        </form>
+    </div>
+
+    <!-- Fallback / Retry Info -->
+    <div style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-dark-muted);">
+        Having trouble paying? 
+        <a href="https://wa.me/254700000000?text=I%20am%20having%20trouble%20paying%20for%20{{ course.title }}" target="_blank" style="color: #10b981; text-decoration: underline;">
+            Contact us on WhatsApp
+        </a>
+    </div>
+</div>
+{% endblock %}

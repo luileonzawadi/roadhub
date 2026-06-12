@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Roadshub — practical training for infrastructure engineers: Civil 3D, BIM, vehicle tracking, drainage design and ACP exam preparation." />
+  <title>Roadshub | Learn. Build. Transform.</title>
+  <link rel="icon" href="https://roadshub.org/wp-content/uploads/2024/06/Roadshub-Main-website-logo-001.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-bar">
+      <a class="brand" href="{{ url_for('main.index') }}">
+        <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span><span class="text-accent">Roads</span>hub</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav" role="navigation" aria-label="Primary">
+        <a href="{{ url_for('main.index') }}" class="nav-link active">Home</a>
+        <a href="#offerings" class="nav-link">Curriculum</a>
+        <a href="#why" class="nav-link">Why Roadshub</a>
+        <a href="#program" class="nav-link">Featured</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="login-link" href="{{ url_for('main.login') }}">Log in</a>
+        <a class="cta-button" href="{{ url_for('main.login') }}">
+          Get Started
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section id="home" class="hero-section">
+      <div class="hero-grid-bg"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-in">
+          <span class="hero-badge-dot"></span>
+          Trusted by 500+ Engineers Across Africa
+        </div>
+        <h1 class="animate-fade-in delay-1">Master Road &amp;<br/>Infrastructure Design</h1>
+        <p class="hero-sub animate-fade-in delay-2">Advance your career with <strong>Civil 3D</strong>, <strong>BIM</strong>, <strong>Vehicle Tracking</strong>, and <strong>ACP certification</strong> prep — taught by engineers who build real roads every day.</p>
+        <div class="hero-actions animate-fade-in delay-3">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('main.login') }}">
+            Explore Courses
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://wa.me/254714408484" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Talk to an Engineer
+          </a>
+        </div>
+        <div class="hero-trust animate-fade-in delay-4">
+          <span class="trust-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Live Virtual Classes</span>
+          <span class="trust-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> ACP Certification Path</span>
+          <span class="trust-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Real Project Workflows</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ STATS BANNER ═══════════════ -->
+    <section class="stats-banner">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Engineers Trained</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="14">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Countries Reached</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="4.9">0</span><span class="stat-suffix">/5</span>
+          <span class="stat-label">Average Rating</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="95">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Completion Rate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ OFFERINGS ═══════════════ -->
+    <section id="offerings" class="section">
+      <div class="section-header">
+        <span class="eyebrow">What We Offer</span>
+        <h2>Specialised Training for<br/>Infrastructure Engineers</h2>
+        <p class="section-sub">Industry-standard software, real project workflows, and expert mentorship — all in one focused program.</p>
+      </div>
+      <div class="offering-grid">
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3>Civil 3D Road Design</h3>
+          <p>Master corridor modelling, horizontal &amp; vertical alignments, and design output for highways and local roads.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <h3>Highway &amp; Intersection Geometry</h3>
+          <p>Design complex at-grade intersections, roundabouts, and multi-lane junctions to international standards.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>BIM for Infrastructure</h3>
+          <p>Deliver coordinated BIM models for road and drainage projects using InfraWorks and Civil 3D workflows.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+          <h3>Sanitary &amp; Storm Sewer Design</h3>
+          <p>Design gravity sewer networks, storm drainage, and detention systems using Civil 3D Pipes.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <h3>Design Report &amp; Quantity Takeoff</h3>
+          <p>Automate design reports, compute earthworks volumes, and generate professional quantity schedules.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="offering-card">
+          <div class="offering-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <h3>Vehicle Tracking &amp; Swept Path</h3>
+          <p>Validate turning radii and swept paths for trucks, buses, and emergency vehicles in AutoCAD Vehicle Tracking.</p>
+          <a class="card-link" href="{{ url_for('main.login') }}">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══════════════ WHY ROADSHUB ═══════════════ -->
+    <section id="why" class="section section-dark">
+      <div class="section-header">
+        <span class="eyebrow">Why Roadshub</span>
+        <h2>What Makes Us Different</h2>
+        <p class="section-sub">We're not another online course platform. We're a team of practicing engineers who train the way we work.</p>
+      </div>
+      <div class="why-grid">
+        <article class="why-card">
+          <div class="why-num">01</div>
+          <h3>Exclusive Cohort Training</h3>
+          <p>Every intake is capped at 20 engineers. No mass-market noise — just focused, peer-driven learning that mirrors real project teams.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-num">02</div>
+          <h3>Software-First Curriculum</h3>
+          <p>Built around Autodesk Civil 3D, InfraWorks, Vehicle Tracking, Global Mapper, Plex-Earth, and ArcGIS — the exact tools used on live projects.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-num">03</div>
+          <h3>ACP Certification Path</h3>
+          <p>Our curriculum maps directly to the Autodesk Civil 3D Certified Professional exam — you leave with skills and exam readiness.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-num">04</div>
+          <h3>Taught by Practicing Engineers</h3>
+          <p>Our instructors design real roads, junctions, and drainage systems every day. Your training is grounded in live project experience.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-num">05</div>
+          <h3>Real Project Case Studies</h3>
+          <p>Each module dissects actual road projects — from roundabout geometry to highway access road design — so you practise on real challenges.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-num">06</div>
+          <h3>Templates &amp; Plugins Included</h3>
+          <p>Every student receives our curated Civil 3D template library, custom tool palettes, and plugin pack — assets worth hours of setup time.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══════════════ WHO IT'S FOR ═══════════════ -->
+    <section class="section who-section">
+      <div class="who-inner">
+        <div class="who-text">
+          <span class="eyebrow">Who It's For</span>
+          <h2>Built for Ambitious Infrastructure Professionals</h2>
+          <p>Whether you're upskilling from AutoCAD or preparing for an Autodesk certification, Roadshub meets you where you are.</p>
+          <ul class="who-list">
+            <li>
+              <div class="who-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.32 9c.26.4.4.86.4 1.32V11h.28a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+              <div><strong>Civil Engineers</strong> with intermediate software skills ready to advance</div>
+            </li>
+            <li>
+              <div class="who-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></div>
+              <div><strong>Engineering Graduates</strong> specialising in road and highway design</div>
+            </li>
+            <li>
+              <div class="who-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2"/><path d="M23 6l-4 6 4 6"/></svg></div>
+              <div><strong>Urban Planners &amp; Consultants</strong> needing infrastructure design capability</div>
+            </li>
+            <li>
+              <div class="who-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <div><strong>ACP Candidates</strong> preparing for Autodesk certification</div>
+            </li>
+          </ul>
+          <a class="btn btn-primary" href="{{ url_for('main.login') }}">Find Your Course <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="who-image">
+          <img src="https://roadshub.org/wp-content/uploads/elementor/thumbs/Miles-Gallery.-June-09-2024-134-scaled-qq1c4q4jxe7zhqmgbnujvwpaps4k2qiqz5i8v0fv40.jpg" alt="Roadshub training session" loading="lazy" />
+          <div class="who-image-badge">
+            <span class="who-badge-number">20</span>
+            <span>Engineers<br/>per Cohort</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ HOW WE DELIVER ═══════════════ -->
+    <section class="section">
+      <div class="section-header centered">
+        <span class="eyebrow">How We Deliver</span>
+        <h2>Structured. Practical. Results-Driven.</h2>
+        <p class="section-sub">A focused 4–8 week format that fits your schedule without sacrificing depth.</p>
+      </div>
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <div class="delivery-num">01</div>
+          <strong>Live Virtual Classes</strong>
+          <p>2–3 sessions per week led by practicing engineers via interactive video.</p>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-num">02</div>
+          <strong>Practical Assignments</strong>
+          <p>Hands-on exercises using real project data — not textbook examples.</p>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-num">03</div>
+          <strong>Templates &amp; Plugins</strong>
+          <p>Your own Civil 3D template library and plugin pack included from day one.</p>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-num">04</div>
+          <strong>Recorded Replays</strong>
+          <p>Every session is recorded so you can revisit at your own pace.</p>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-num">05</div>
+          <strong>Design Reviews &amp; Quizzes</strong>
+          <p>Weekly feedback on your work from experienced project engineers.</p>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-num">06</div>
+          <strong>Certificate + ACP Prep</strong>
+          <p>Earn a completion certificate and an optional Autodesk ACP exam pathway.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ FEATURED PROGRAM ═══════════════ -->
+    <section id="program" class="section section-dark featured-section">
+      <div class="featured-inner">
+        <div class="featured-text">
+          <span class="eyebrow">Featured Program</span>
+          <h2>Advanced Civil 3D —<br/>At-Grade Intersection Design</h2>
+          <p>A 4-week intensive cohort for engineers ready to master complex junction design using Autodesk Civil 3D and Vehicle Tracking on real project data.</p>
+          <ul class="check-list">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Exclusive cohort of 20 engineers</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Design junctions, roundabouts &amp; NMTS facilities</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Autodesk ACP certification preparation</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Full toolchain: Civil 3D + InfraWorks + ArcGIS</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Real project mentorship &amp; design review</li>
+          </ul>
+          <div class="featured-actions">
+            <a class="btn btn-primary" href="{{ url_for('main.login') }}">Explore This Course <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <a class="btn btn-ghost" href="https://wa.me/254714408484" target="_blank">Ask a Question</a>
+          </div>
+        </div>
+        <div class="featured-image">
+          <div class="featured-badge">4-Week Intensive</div>
+          <img src="https://roadshub.org/wp-content/uploads/elementor/thumbs/CIVIL-3D-TRAINING-WHO-CAN-APPLY_062114-qqrfkl2rd3260de23hdtyl1ni6cc7n0pfx0bkneb7k.png" alt="Advanced Civil 3D training" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+    <section class="section testimonials-section">
+      <div class="section-header centered">
+        <span class="eyebrow">What Our Students Say</span>
+        <h2>Trusted by Engineers Across Africa</h2>
+        <p class="section-sub">Real feedback from infrastructure professionals who've transformed their careers with Roadshub.</p>
+      </div>
+      <div class="testimonials-track-wrapper" aria-label="Student testimonials">
+        <div class="testimonials-track" id="testimonialsTrack">
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The Civil 3D Road Design course completely changed how I approach highway projects. The hands-on exercises using real project data were invaluable."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">AK</div>
+              <div><strong>Ahmed Karim</strong><span>Civil Engineer · Tanzania</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"I passed my Autodesk ACP certification exam on the first attempt thanks to Roadshub. The exam preparation modules are spot-on."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">FO</div>
+              <div><strong>Fatuma Odhiambo</strong><span>Infrastructure Consultant · Kenya</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The BIM for Infrastructure course gave me a massive competitive edge when bidding for projects. I can now deliver design reports that meet international standards."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">MN</div>
+              <div><strong>Moses Nkurunziza</strong><span>Road Design Engineer · Rwanda</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"What separates Roadshub from other online courses is that instructors are practicing engineers. They know exactly what issues you face on real projects."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">LW</div>
+              <div><strong>Lilian Waweru</strong><span>Urban Planner · Uganda</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The Vehicle Tracking &amp; Swept Path Analysis training saved our firm weeks of back-and-forth with clients. We now produce swept path reports in hours."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">SA</div>
+              <div><strong>Samira Abdi</strong><span>Transport Engineer · Somalia</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The cohort structure is brilliant — learning alongside other serious engineers from across Africa meant we could share real problems and solutions."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">DO</div>
+              <div><strong>Daniel Osei</strong><span>Highway Engineer · Ghana</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"Roadshub's drainage design module is outstanding. I now handle storm sewer layouts in Civil 3D without relying on external consultants."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">PT</div>
+              <div><strong>Paul Tarigan</strong><span>Civil Engineer · Ethiopia</span></div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"I enrolled as a recent graduate with basic AutoCAD skills. Eight weeks later I was delivering professional road design reports."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">NJ</div>
+              <div><strong>Naomi Juma</strong><span>Graduate Engineer · Kenya</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="testimonials-controls">
+        <button class="t-btn" id="tPrev" aria-label="Previous testimonial">&#8592;</button>
+        <div class="t-dots" id="tDots"></div>
+        <button class="t-btn" id="tNext" aria-label="Next testimonial">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════ GLOBAL REACH ═══════════════ -->
+    <section class="section section-dark global-section">
+      <div class="section-header centered">
+        <span class="eyebrow">Our Global Reach</span>
+        <h2>Engineers Trained Across Continents</h2>
+        <p class="section-sub">From East Africa to the Middle East, Roadshub graduates are designing the infrastructure of tomorrow.</p>
+      </div>
+      <div class="countries-grid">
+        <div class="country-chip">🇰🇪 Kenya</div>
+        <div class="country-chip">🇹🇿 Tanzania</div>
+        <div class="country-chip">🇷🇼 Rwanda</div>
+        <div class="country-chip">🇸🇴 Somalia</div>
+        <div class="country-chip">🇺🇬 Uganda</div>
+        <div class="country-chip">🇬🇭 Ghana</div>
+        <div class="country-chip">🇪🇹 Ethiopia</div>
+        <div class="country-chip">🇿🇲 Zambia</div>
+        <div class="country-chip">🇿🇼 Zimbabwe</div>
+        <div class="country-chip">🇸🇩 Sudan</div>
+        <div class="country-chip">🇳🇬 Nigeria</div>
+        <div class="country-chip">🇸🇦 Saudi Arabia</div>
+        <div class="country-chip">🇦🇪 UAE</div>
+        <div class="country-chip">🌍 & More…</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CTA BANNER ═══════════════ -->
+    <section class="cta-banner">
+      <div class="cta-banner-inner">
+        <h2>Ready to Build Your Engineering Future?</h2>
+        <p>Join 500+ infrastructure professionals who advanced their careers with Roadshub. Next cohort starts soon.</p>
+        <div class="cta-banner-actions">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('main.login') }}">Get Started Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a class="btn btn-ghost" href="{{ url_for('main.lead_capture_page') }}">Download Free Study Guide</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer id="contact" class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <h3 class="footer-logo"><span class="text-accent">Roads</span>hub</h3>
+          <p>Empowering infrastructure engineers through advanced, practical training in Civil 3D, BIM, and highway design.</p>
+          <div class="social-links-footer">
+            <a href="https://www.linkedin.com/company/roadshub-engineering-design/" target="_blank" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            <a href="https://www.youtube.com/@RoadsHub" target="_blank" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.015 3.015 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            <a href="https://wa.me/254714408484" target="_blank" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="#">About Us</a>
+          <a href="{{ url_for('main.login') }}">All Courses</a>
+          <a href="#">Instructor Portal</a>
+          <a href="#">Corporate Training</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="tel:+254745634313">+254 745 634 313</a>
+          <a href="mailto:trainings@roadshub.org">trainings@roadshub.org</a>
+          <a href="https://wa.me/254714408484">WhatsApp Support</a>
+        </div>
+        <div class="newsletter-col">
+          <h4>Get the Study Guide</h4>
+          <p>Join our newsletter and receive the free ACP Certification Study Guide instantly.</p>
+          <form action="{{ url_for('main.capture_lead') }}" method="POST" class="newsletter-form">
+            <input type="email" name="email" placeholder="Your email address" required />
+            <input type="hidden" name="name" value="Newsletter Subscriber" />
+            <input type="hidden" name="source_tag" value="Footer_Newsletter" />
+            <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Roadshub. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script>
+    /* ── Sticky header shadow ── */
+    (function(){
+      const header = document.getElementById('siteHeader');
+      if(!header)return;
+      window.addEventListener('scroll',()=>{
+        header.classList.toggle('scrolled', window.scrollY > 20);
+      });
+    })();
+
+    /* ── Mobile nav toggle ── */
+    (function(){
+      const toggle = document.getElementById('navToggle');
+      const nav = document.getElementById('mainNav');
+      if(!toggle||!nav) return;
+      toggle.addEventListener('click',()=>{
+        const open = nav.classList.toggle('open');
+        toggle.classList.toggle('active', open);
+        toggle.setAttribute('aria-expanded', open);
+      });
+    })();
+
+    /* ── Testimonials carousel ── */
+    (function(){
+      const track = document.getElementById('testimonialsTrack');
+      const dotsEl = document.getElementById('tDots');
+      const prevBtn = document.getElementById('tPrev');
+      const nextBtn = document.getElementById('tNext');
+      if(!track) return;
+      const items = Array.from(track.querySelectorAll('.testimonial-card'));
+      const total = items.length;
+      let current = 0, timer = null;
+      const DELAY = 4500;
+
+      items.forEach((_,i)=>{
+        const d = document.createElement('button');
+        d.className='t-dot'; d.setAttribute('aria-label',`Go to testimonial ${i+1}`);
+        d.addEventListener('click',()=>goTo(i));
+        dotsEl.appendChild(d);
+      });
+
+      function updateDots(){ dotsEl.querySelectorAll('.t-dot').forEach((d,i)=>d.classList.toggle('active',i===current)); }
+      function goTo(index){
+        current=(index+total)%total;
+        const gap=parseInt(getComputedStyle(track).gap)||24;
+        const itemWidth=items[0].offsetWidth+gap;
+        track.style.transform=`translateX(-${current*itemWidth}px)`;
+        updateDots();
+      }
+      function startAuto(){ clearInterval(timer); timer=setInterval(()=>goTo(current+1),DELAY); }
+
+      prevBtn.addEventListener('click',()=>{goTo(current-1);startAuto();});
+      nextBtn.addEventListener('click',()=>{goTo(current+1);startAuto();});
+
+      const wrapper=track.closest('.testimonials-track-wrapper');
+      wrapper.addEventListener('mouseenter',()=>clearInterval(timer));
+      wrapper.addEventListener('mouseleave',()=>startAuto());
+      window.addEventListener('resize',()=>goTo(current));
+
+      let touchStartX=0;
+      wrapper.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+      wrapper.addEventListener('touchend',e=>{
+        const dx=e.changedTouches[0].clientX-touchStartX;
+        if(Math.abs(dx)>50){goTo(current+(dx<0?1:-1));startAuto();}
+      },{passive:true});
+
+      goTo(0); startAuto();
+    })();
+
+    /* ── Animated stat counters ── */
+    (function(){
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      if(!counters.length) return;
+      function animateCounter(el){
+        const target=parseFloat(el.dataset.target);
+        const isDecimal=target%1!==0;
+        const duration=2000;
+        const startTime=performance.now();
+        function step(now){
+          const progress=Math.min((now-startTime)/duration,1);
+          const eased=1-Math.pow(1-progress,3);
+          const value=eased*target;
+          el.textContent=isDecimal?value.toFixed(1):Math.floor(value);
+          if(progress<1) requestAnimationFrame(step);
+          else el.textContent=isDecimal?target.toFixed(1):target;
+        }
+        requestAnimationFrame(step);
+      }
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){animateCounter(entry.target);observer.unobserve(entry.target);}
+        });
+      },{threshold:0.5});
+      counters.forEach(c=>observer.observe(c));
+    })();
+
+    /* ── Scroll reveal animations ── */
+    (function(){
+      const reveals = document.querySelectorAll('.offering-card, .why-card, .delivery-card, .who-list li');
+      if(!reveals.length) return;
+      const observer = new IntersectionObserver(entries=>{
+        entries.forEach((entry,i)=>{
+          if(entry.isIntersecting){
+            entry.target.style.transitionDelay = `${i * 0.06}s`;
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.15});
+      reveals.forEach(el=>{el.classList.add('reveal-item'); observer.observe(el);});
+    })();
+  </script>
+</body>
+</html>

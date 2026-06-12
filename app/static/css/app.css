@@ -1,0 +1,714 @@
+/* Roadshub Base Application Style Theme */
+
+:root {
+    /* Brand Color Palette */
+    --bg-dark: #0A1628;             /* Dark navy base */
+    --bg-dark-accent: #12243d;      /* Slightly lighter navy for cards, sidebar, and panels */
+    --bg-light: #F8FAFC;            /* Clean light grey for dashboard workspace background */
+    --primary-orange: #F57C00;      /* Primary orange brand color */
+    --primary-orange-hover: #E65100;/* Darker orange for buttons hover */
+    --accent-teal: #00BCD4;         /* Accent teal brand color */
+    --accent-teal-glow: rgba(0, 188, 212, 0.15);
+    
+    /* Text Colors */
+    --text-white: #FFFFFF;
+    --text-light: #E2E8F0;
+    --text-muted: #94A3B8;
+    --text-dark: #0F172A;
+    --text-dark-muted: #64748B;
+    
+    /* System Borders and Cards */
+    --border-color: rgba(226, 232, 240, 0.08);
+    --border-color-light: rgba(15, 23, 42, 0.08);
+    --card-shadow: 0 4px 20px rgba(10, 22, 40, 0.05);
+    --card-shadow-hover: 0 10px 30px rgba(10, 22, 40, 0.08);
+    
+    /* Typography */
+    --font-headings: 'Sora', 'Poppins', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    
+    /* Sizing Variables */
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 80px;
+    --header-height: 70px;
+    --transition-speed: 0.3s;
+}
+
+/* Base resets & fonts */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    color: var(--bg-dark);
+    line-height: 1.25;
+}
+
+a {
+    color: var(--primary-orange);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-teal);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   App Header Styling
+   ────────────────────────────────────────────────────────────────────────── */
+.app-header {
+    height: var(--header-height);
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sidebar-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-logo {
+    font-family: var(--font-headings);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-white);
+}
+
+.logo-accent {
+    color: var(--primary-orange);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/* User Profile Badge */
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px 6px 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-name-desktop {
+    font-size: 0.88rem;
+    font-weight: 550;
+    color: var(--text-light);
+}
+
+.user-role-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.role-student {
+    background-color: var(--accent-teal-glow);
+    color: var(--accent-teal);
+}
+
+.role-instructor {
+    background-color: rgba(245, 124, 0, 0.15);
+    color: var(--primary-orange);
+}
+
+.role-admin {
+    background-color: rgba(220, 38, 38, 0.15);
+    color: #ef4444;
+}
+
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-orange);
+}
+
+.avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-dark-accent), var(--accent-teal));
+    color: var(--text-white);
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.btn-login-nav {
+    background-color: var(--primary-orange);
+    color: var(--text-white);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.btn-login-nav:hover {
+    background-color: var(--primary-orange-hover);
+    color: var(--text-white);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Layout Core Grid
+   ────────────────────────────────────────────────────────────────────────── */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    padding-top: var(--header-height);
+    position: relative;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   App Sidebar Styling (Nav Drawer)
+   ────────────────────────────────────────────────────────────────────────── */
+.app-sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    position: fixed;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform var(--transition-speed) ease, width var(--transition-speed) ease;
+    transform: translateX(-100%); /* Hidden on mobile by default */
+}
+
+/* Sidebar Branding (Only on Desktop) */
+.sidebar-brand {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    display: none;
+}
+
+.brand-text {
+    font-family: var(--font-headings);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.text-orange {
+    color: var(--primary-orange);
+}
+
+.brand-subtitle {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 0.75rem;
+}
+
+.nav-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin: 1.5rem 0.75rem 0.5rem;
+    opacity: 0.75;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-white);
+}
+
+.nav-item.active {
+    background-color: var(--primary-orange);
+    color: var(--text-white);
+    font-weight: 600;
+}
+
+.nav-item.active .nav-icon {
+    color: var(--text-white);
+}
+
+.nav-icon {
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.nav-item:hover .nav-icon {
+    color: var(--accent-teal);
+}
+
+/* Logout Option Override */
+.logout-item:hover {
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+.logout-item:hover .nav-icon {
+    color: #ef4444 !important;
+}
+
+/* Sidebar Footer & Collapse Mechanism */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.collapse-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.collapse-toggle-btn:hover {
+    color: var(--text-white);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.chevron-icon {
+    transition: transform var(--transition-speed) ease;
+}
+
+/* Mobile backdrop drawer overlay */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(10, 22, 40, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 85;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Desktop Layout Collapse State Overrides
+   ────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 992px) {
+    .sidebar-toggle {
+        display: none; /* Hide drawer trigger on desktop since sidebar is static */
+    }
+    
+    .app-sidebar {
+        transform: translateX(0); /* Sidebar always visible on desktop */
+        width: var(--sidebar-width);
+    }
+    
+    .sidebar-brand {
+        display: block; /* Logo inside the navigation column */
+    }
+    
+    .app-main {
+        margin-left: var(--sidebar-width);
+        transition: margin-left var(--transition-speed) ease;
+    }
+    
+    /* Collapsed state styles */
+    .app-sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+    }
+    
+    .app-sidebar.collapsed .sidebar-brand {
+        padding: 1.5rem 0.5rem;
+        text-align: center;
+    }
+    
+    .app-sidebar.collapsed .brand-text,
+    .app-sidebar.collapsed .brand-subtitle,
+    .app-sidebar.collapsed .nav-section-title,
+    .app-sidebar.collapsed .nav-label,
+    .app-sidebar.collapsed .collapse-text {
+        display: none; /* Hide text, leaving only icons and logo */
+    }
+    
+    .app-sidebar.collapsed .chevron-icon {
+        transform: rotate(180deg);
+    }
+    
+    .app-sidebar.collapsed .nav-item {
+        justify-content: center;
+        padding: 12px;
+        margin: 0 8px 8px;
+    }
+    
+    .app-sidebar.collapsed .sidebar-footer {
+        padding: 1rem 0.5rem;
+    }
+    
+    .app-sidebar.collapsed .collapse-toggle-btn {
+        justify-content: center;
+        padding: 10px;
+    }
+    
+    body.sidebar-collapsed-active .app-main {
+        margin-left: var(--sidebar-collapsed-width);
+    }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Mobile Slide-out Drawers Triggered
+   ────────────────────────────────────────────────────────────────────────── */
+.app-sidebar.mobile-open {
+    transform: translateX(0);
+}
+
+.sidebar-backdrop.active {
+    display: block;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   App Main Area Layout
+   ────────────────────────────────────────────────────────────────────────── */
+.app-main {
+    flex: 1;
+    min-height: calc(100vh - var(--header-height));
+    position: relative;
+    padding: 1.5rem;
+}
+
+.content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Flash messages Toast System
+   ────────────────────────────────────────────────────────────────────────── */
+.flash-container {
+    position: fixed;
+    top: calc(var(--header-height) + 1rem);
+    right: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 380px;
+    width: 100%;
+}
+
+.flash-toast {
+    background-color: var(--white);
+    border-left: 4px solid var(--primary-orange);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-message {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.toast-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--text-dark-muted);
+    cursor: pointer;
+    margin-top: -2px;
+}
+
+.toast-close-btn:hover {
+    color: var(--text-dark);
+}
+
+/* Toast Categories Variations */
+.toast-success { border-left-color: #10b981; }
+.toast-danger { border-left-color: #ef4444; }
+.toast-warning { border-left-color: #f59e0b; }
+.toast-info { border-left-color: var(--accent-teal); }
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-1rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Custom Components for Demo Dashboards
+   (We will use these cards & progress styles in dashboards)
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Cards Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.app-card {
+    background-color: var(--text-white);
+    border-radius: 12px;
+    border: 1px solid var(--border-color-light);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.app-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--bg-dark);
+}
+
+/* Progress bar UI styling */
+.progress-bar-container {
+    width: 100%;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark-muted);
+    margin-bottom: 6px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(15, 23, 42, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-orange);
+    border-radius: 999px;
+    transition: width 0.5s ease-out;
+}
+
+.progress-fill-teal {
+    background-color: var(--accent-teal);
+}
+
+/* Badge tags */
+.badge-pill {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: fit-content;
+}
+
+.badge-orange {
+    background-color: rgba(245, 124, 0, 0.1);
+    color: var(--primary-orange);
+}
+
+.badge-teal {
+    background-color: var(--accent-teal-glow);
+    color: var(--accent-teal);
+}
+
+.badge-grey {
+    background-color: rgba(100, 116, 139, 0.1);
+    color: var(--text-dark-muted);
+}
+
+/* Standard Button components */
+.btn-primary {
+    background-color: var(--primary-orange);
+    color: var(--text-white);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-orange-hover);
+    color: var(--text-white);
+}
+
+.btn-secondary {
+    background-color: rgba(10, 22, 40, 0.05);
+    color: var(--bg-dark);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 10px 20px;
+    border: 1px solid rgba(10, 22, 40, 0.08);
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(10, 22, 40, 0.08);
+}
+
+/* Form layouts */
+.auth-form-card {
+    max-width: 440px;
+    margin: 4rem auto;
+    background-color: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color-light);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--bg-dark);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.15);
+}
+
+/* Mobile responsive breakpoints for custom dashboards */
+@media (max-width: 576px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .app-main {
+        padding: 1rem;
+    }
+}
