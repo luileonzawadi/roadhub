@@ -29,12 +29,25 @@
     .articles-container {
       max-width: 1200px;
       margin: -3rem auto 4rem;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
       position: relative;
       z-index: 10;
+    }
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 5rem 1rem 3rem;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .articles-container {
+        margin-top: -1.5rem;
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
     }
     .article-card {
       background: white;

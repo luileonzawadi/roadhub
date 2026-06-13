@@ -3,6 +3,20 @@
 {% block title %}Student Dashboard — Roadhub{% endblock %}
 
 {% block content %}
+<style>
+    @media (max-width: 768px) {
+        .dashboard-sections {
+            grid-template-columns: 1fr !important;
+        }
+        .welcome-banner .banner-content {
+            padding-top: 1rem;
+        }
+        .welcome-banner {
+            background-position: left center !important;
+        }
+    }
+</style>
+
 <div class="dashboard-header" style="margin-bottom: 2rem;">
     <h1 style="font-size: 2rem; color: var(--text-dark);">Student Dashboard</h1>
     <p style="color: var(--text-dark-muted);">Manage your curriculum, track practical milestones, and view certifications.</p>

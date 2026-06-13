@@ -125,10 +125,25 @@
       color: white;
     }
     
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 5rem 1rem 3rem;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .community-container {
+        margin-top: -1.5rem;
+      }
       .discussion-card {
         flex-direction: column;
         gap: 1rem;
+      }
+      .discussion-header {
+        flex-direction: column;
+      }
+      .discussion-meta {
+        flex-wrap: wrap;
       }
     }
   </style>
