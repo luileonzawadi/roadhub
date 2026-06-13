@@ -801,7 +801,6 @@ def capture_lead():
     
     flash("Thank you! Your ACP Study Guide has been emailed to you and we'll send a WhatsApp confirmation shortly.", "success")
     return redirect(url_for('main.index'))
-
 @main_bp.route('/pricing')
 def pricing():
     from app.tasks import evaluate_lead_intent_task
@@ -816,3 +815,81 @@ def pricing():
             evaluate_lead_intent_task.apply_async(args=[lead.id])
             
     return render_template('index.html')  # Mock pricing page using index for now
+@main_bp.route('/api/chat', methods=['POST'])
+def chat():
+    """
+    Roadhub AI Assistant API.
+    Provides context-aware responses to user queries about the Roadhub platform.
+    """
+    data = request.get_json() or {}
+    user_msg = data.get('message', '').strip().lower()
+    
+    if not user_msg:
+        return {"response": "I didn't catch that. Could you please type something?"}, 400
+
+    # Contextual matching logic
+    if any(k in user_msg for k in ['hvac', 'plumbing', 'fire fighting', 'mechanical']):
+        response = (
+            "Our <strong>Mechanical Engineering Path</strong> covers HVAC load calculations, pipe sizing, "
+            "duct design, and Fire Fighting layouts matching international codes. "
+            "Would you like to <a href='/login'>log in</a> to see the specific modules?"
+        )
+    elif any(k in user_msg for k in ['electrical', 'power', 'light current', 'bms']):
+        response = (
+            "The <strong>Electrical Engineering Path</strong> covers interior lighting design, power distribution sizing, "
+            "earthing systems, light current systems, and Building Management Systems (BMS). "
+            "All lessons are created by practicing senior electrical designers."
+        )
+    elif any(k in user_msg for k in ['civil', 'structure', 'infrastructure', 'concrete']):
+        response = (
+            "The <strong>Civil & Structural Paths</strong> focus on concrete element designs, reinforcement layout checks, "
+            "site supervision procedures, and infrastructural design. You get to work on real shop drawings."
+        )
+    elif any(k in user_msg for k in ['architect', 'landscape', 'interior', 'design']):
+        response = (
+            "Our <strong>Architecture & Interior Design Paths</strong> guide you through space planning, zoning, "
+            "material selections, drafting construction details, and architectural rendering principles."
+        )
+    elif any(k in user_msg for k in ['pricing', 'cost', 'fee', 'payment', 'free', 'price']):
+        response = (
+            "Roadhub offers a mix of free introductory courses and premium cohort-based paths. "
+            "You can view the full pricing breakdown and pay securely via Stripe or MPESA "
+            "upon logging into your student account."
+        )
+    elif any(k in user_msg for k in ['certif', 'acp', 'autodesk', 'credential', 'exam']):
+        response = (
+            "Yes! Completing Roadhub courses prepares you for the <strong>Autodesk Certified Professional (ACP)</strong> exams. "
+            "Once you complete all cohort milestones, a verified digital completion certificate is awarded automatically."
+        )
+    elif any(k in user_msg for k in ['mentor', 'teacher', 'instructor', 'who teach']):
+        response = (
+            "All our instructors are practicing professional engineers and project leads with global market experience. "
+            "They review your submissions and host weekly live design sessions."
+        )
+    elif any(k in user_msg for k in ['study guide', 'download', 'pdf', 'nurture', 'guide']):
+        response = (
+            "You can download our free <strong>Engineering Study Guide</strong> by clicking the 'Get Study Guide' button "
+            "in the banner at the bottom of the home page, or register via the lead form to get it emailed to you."
+        )
+    elif any(k in user_msg for k in ['hello', 'hi', 'hey', 'greetings', 'start']):
+        response = (
+            "Hello! Welcome to Roadhub. I'm your engineering study assistant. "
+            "Ask me anything about our HVAC, Electrical, Civil, or Architecture courses, certifications, or pricing!"
+        )
+    else:
+        response = (
+            "I'm here to help you navigate Roadhub! I can provide info about our "
+            "practical courses (HVAC, Electrical, Civil, Architecture), Autodesk certification preparation, "
+            "pricing details, and professional mentorship. What would you like to know?"
+        )
+
+    return {"response": response}
+
+@main_bp.route('/articles')
+def articles():
+    return render_template('articles.html')
+
+@main_bp.route('/community')
+def community():
+    return render_template('community.html')
+

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Roadshub — Professional Road Engineering Training{% endblock %}</title>
+        <title>{% block title %}Roadhub — Premium Engineering{% endblock %}</title>
     <!-- Favicon -->
-    <link rel="icon" href="https://roadshub.org/wp-content/uploads/2024/06/Roadshub-Main-website-logo-001.png" />
+    <link rel="icon" href="https://img.icons8.com/color/48/engineering.png" />
     
     <!-- Google Fonts: Sora for headings, Inter for body text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
     
     <!-- Link to the main app stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
     
     {% block styles %}{% endblock %}
 </head>
@@ -29,7 +30,7 @@
                 </svg>
             </button>
             <a href="/" class="app-logo">
-                <span class="logo-accent">Roads</span>hub
+                <span style="color: var(--primary-blue);">Road</span><span style="color: var(--primary-orange);">hub</span>
             </a>
         </div>
         
@@ -60,9 +61,9 @@
             <!-- Sidebar Header for Desktop -->
             <div class="sidebar-brand">
                 <div class="brand-text">
-                    <span class="text-orange">Roads</span>hub
+                    <span style="color: var(--primary-blue);">Road</span><span style="color: var(--primary-orange);">hub</span>
                 </div>
-                <div class="brand-subtitle">African Infrastructure Academy</div>
+                <div class="brand-subtitle">Home of Experience</div>
             </div>
             
             <nav class="sidebar-nav">
@@ -259,5 +260,7 @@
     </script>
     
     {% block scripts %}{% endblock %}
+    <!-- Floating Chatbot Script -->
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
 </html>

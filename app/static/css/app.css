@@ -1,40 +1,53 @@
-/* Roadshub Base Application Style Theme */
+/* ============================================================
+   Roadhub Application Dashboard — Clean Professional Theme
+   Inspired by Roadhub.com aesthetic
+   ============================================================ */
 
 :root {
     /* Brand Color Palette */
-    --bg-dark: #0A1628;             /* Dark navy base */
-    --bg-dark-accent: #12243d;      /* Slightly lighter navy for cards, sidebar, and panels */
-    --bg-light: #F8FAFC;            /* Clean light grey for dashboard workspace background */
-    --primary-orange: #F57C00;      /* Primary orange brand color */
-    --primary-orange-hover: #E65100;/* Darker orange for buttons hover */
-    --accent-teal: #00BCD4;         /* Accent teal brand color */
-    --accent-teal-glow: rgba(0, 188, 212, 0.15);
-    
+    --bg-page: #F4F6F8;
+    --bg-white: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-sidebar: #0f172a;       /* Dark slate instead of navy */
+    --bg-header: #FFFFFF;
+
+    --primary-blue: #0b51ff;
+    --primary-blue-hover: #0037d6;
+    --primary-orange: #ff7f24;
+    --primary-orange-hover: #e67320;
+    --primary-light: #edf2ff;      /* Soft blue accent background */
+    --accent-teal: #0b51ff;        /* Aliasing accent to primary blue */
+    --accent-teal-light: #e5ebff;
+    --accent-teal-glow: rgba(11, 81, 255, 0.12);
+
     /* Text Colors */
+    --text-heading: #0f172a;
+    --text-body: #475569;
+    --text-muted: #64748b;
     --text-white: #FFFFFF;
-    --text-light: #E2E8F0;
-    --text-muted: #94A3B8;
-    --text-dark: #0F172A;
-    --text-dark-muted: #64748B;
-    
-    /* System Borders and Cards */
-    --border-color: rgba(226, 232, 240, 0.08);
-    --border-color-light: rgba(15, 23, 42, 0.08);
-    --card-shadow: 0 4px 20px rgba(10, 22, 40, 0.05);
-    --card-shadow-hover: 0 10px 30px rgba(10, 22, 40, 0.08);
-    
+    --text-dark: #0f172a;
+    --text-dark-muted: #475569;
+    /* Legacy aliases for templates */
+    --text-light: #475569;
+
+    /* Borders & Shadows */
+    --border-color: #e2e8f0;
+    --border-color-light: #f1f5f9;
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+    --card-shadow-hover: 0 4px 14px rgba(0,0,0,0.06);
+
     /* Typography */
-    --font-headings: 'Sora', 'Poppins', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
-    
-    /* Sizing Variables */
-    --sidebar-width: 280px;
-    --sidebar-collapsed-width: 80px;
-    --header-height: 70px;
-    --transition-speed: 0.3s;
+    --font-headings: 'Sora', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    /* Sizing */
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 72px;
+    --header-height: 64px;
+    --transition-speed: 0.25s;
 }
 
-/* Base resets & fonts */
+/* ── Reset ── */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -43,37 +56,38 @@
 
 body {
     font-family: var(--font-body);
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--bg-page);
+    color: var(--text-body);
     min-height: 100vh;
     overflow-x: hidden;
-    line-height: 1.5;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headings);
     font-weight: 700;
-    color: var(--bg-dark);
+    color: var(--text-heading);
     line-height: 1.25;
 }
 
 a {
-    color: var(--primary-orange);
+    color: var(--primary-blue);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: var(--accent-teal);
+    color: var(--primary-blue-hover);
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   App Header Styling
+   App Header — Clean white bar
    ────────────────────────────────────────────────────────────────────────── */
 .app-header {
     height: var(--header-height);
-    background-color: var(--bg-dark);
-    color: var(--text-white);
+    background-color: var(--bg-header);
+    color: var(--text-heading);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,39 +97,39 @@ a:hover {
     left: 0;
     right: 0;
     z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .sidebar-toggle {
     background: transparent;
     border: none;
-    color: var(--text-white);
+    color: var(--text-heading);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    padding: 6px;
     border-radius: 6px;
     transition: background-color 0.2s;
 }
 
 .sidebar-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--bg-page);
 }
 
 .app-logo {
     font-family: var(--font-headings);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--text-white);
+    letter-spacing: -0.3px;
+    color: var(--text-heading);
 }
 
 .logo-accent {
@@ -125,53 +139,53 @@ a:hover {
 .header-right {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 /* User Profile Badge */
 .user-pill {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 6px 12px 6px 6px;
+    gap: 0.6rem;
+    background-color: var(--bg-page);
+    padding: 5px 10px 5px 5px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-color);
 }
 
 .user-name-desktop {
-    font-size: 0.88rem;
-    font-weight: 550;
-    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-heading);
 }
 
 .user-role-badge {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 999px;
 }
 
 .role-student {
-    background-color: var(--accent-teal-glow);
+    background-color: var(--accent-teal-light);
     color: var(--accent-teal);
 }
 
 .role-instructor {
-    background-color: rgba(245, 124, 0, 0.15);
+    background-color: var(--primary-light);
     color: var(--primary-orange);
 }
 
 .role-admin {
-    background-color: rgba(220, 38, 38, 0.15);
-    color: #ef4444;
+    background-color: rgba(220, 38, 38, 0.08);
+    color: #DC2626;
 }
 
 .avatar-sm {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--primary-orange);
@@ -181,23 +195,24 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--bg-dark-accent), var(--accent-teal));
+    background: var(--primary-orange);
     color: var(--text-white);
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
 }
 
 .btn-login-nav {
-    background-color: var(--primary-orange);
+    background-color: var(--primary-blue);
     color: var(--text-white);
-    padding: 8px 18px;
+    padding: 6px 16px;
     border-radius: 6px;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
+    transition: background 0.2s;
 }
 
 .btn-login-nav:hover {
-    background-color: var(--primary-orange-hover);
+    background-color: var(--primary-blue-hover);
     color: var(--text-white);
 }
 
@@ -212,12 +227,12 @@ a:hover {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   App Sidebar Styling (Nav Drawer)
+   App Sidebar — Dark navy, clean
    ────────────────────────────────────────────────────────────────────────── */
 .app-sidebar {
     width: var(--sidebar-width);
-    background-color: var(--bg-dark);
-    color: var(--text-white);
+    background-color: var(--bg-sidebar);
+    color: rgba(255,255,255,0.8);
     position: fixed;
     top: var(--header-height);
     bottom: 0;
@@ -225,22 +240,22 @@ a:hover {
     z-index: 90;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid rgba(255,255,255,0.06);
     transition: transform var(--transition-speed) ease, width var(--transition-speed) ease;
     transform: translateX(-100%); /* Hidden on mobile by default */
 }
 
-/* Sidebar Branding (Only on Desktop) */
 .sidebar-brand {
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 1.25rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     display: none;
 }
 
 .brand-text {
     font-family: var(--font-headings);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 800;
+    color: var(--text-white);
 }
 
 .text-orange {
@@ -248,8 +263,8 @@ a:hover {
 }
 
 .brand-subtitle {
-    font-size: 0.72rem;
-    color: var(--text-muted);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
     font-weight: 500;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -259,39 +274,38 @@ a:hover {
 .sidebar-nav {
     flex: 1;
     overflow-y: auto;
-    padding: 1.25rem 0.75rem;
+    padding: 1rem 0.65rem;
 }
 
 .nav-section-title {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--text-muted);
-    margin: 1.5rem 0.75rem 0.5rem;
-    opacity: 0.75;
+    color: rgba(255,255,255,0.35);
+    margin: 1.25rem 0.75rem 0.4rem;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    padding: 10px 14px;
+    gap: 0.75rem;
+    padding: 9px 12px;
     border-radius: 8px;
-    color: var(--text-light);
-    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.88rem;
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-white);
+    background-color: rgba(255, 255, 255, 0.06);
+    color: rgba(255,255,255,0.95);
 }
 
 .nav-item.active {
-    background-color: var(--primary-orange);
+    background-color: var(--primary-blue);
     color: var(--text-white);
     font-weight: 600;
 }
@@ -301,132 +315,131 @@ a:hover {
 }
 
 .nav-icon {
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.4);
     transition: color 0.2s ease;
     flex-shrink: 0;
 }
 
 .nav-item:hover .nav-icon {
-    color: var(--accent-teal);
+    color: rgba(255,255,255,0.8);
 }
 
-/* Logout Option Override */
+/* Logout */
 .logout-item:hover {
-    background-color: rgba(239, 68, 68, 0.08);
+    background-color: rgba(220, 38, 38, 0.12);
 }
 
 .logout-item:hover .nav-icon {
     color: #ef4444 !important;
 }
 
-/* Sidebar Footer & Collapse Mechanism */
+/* Sidebar Footer */
 .sidebar-footer {
-    padding: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .collapse-toggle-btn {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
     background: transparent;
     border: none;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.4);
     font-family: var(--font-body);
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 6px;
     transition: all 0.2s;
 }
 
 .collapse-toggle-btn:hover {
-    color: var(--text-white);
-    background-color: rgba(255, 255, 255, 0.04);
+    color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.06);
 }
 
 .chevron-icon {
     transition: transform var(--transition-speed) ease;
 }
 
-/* Mobile backdrop drawer overlay */
+/* Mobile backdrop */
 .sidebar-backdrop {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(10, 22, 40, 0.6);
-    backdrop-filter: blur(4px);
+    background-color: rgba(26, 26, 46, 0.5);
+    backdrop-filter: blur(2px);
     z-index: 85;
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Desktop Layout Collapse State Overrides
+   Desktop Layout
    ────────────────────────────────────────────────────────────────────────── */
 @media (min-width: 992px) {
     .sidebar-toggle {
-        display: none; /* Hide drawer trigger on desktop since sidebar is static */
+        display: none;
     }
-    
+
     .app-sidebar {
-        transform: translateX(0); /* Sidebar always visible on desktop */
+        transform: translateX(0);
         width: var(--sidebar-width);
     }
-    
+
     .sidebar-brand {
-        display: block; /* Logo inside the navigation column */
+        display: block;
     }
-    
+
     .app-main {
         margin-left: var(--sidebar-width);
         transition: margin-left var(--transition-speed) ease;
     }
-    
-    /* Collapsed state styles */
+
     .app-sidebar.collapsed {
         width: var(--sidebar-collapsed-width);
     }
-    
+
     .app-sidebar.collapsed .sidebar-brand {
-        padding: 1.5rem 0.5rem;
+        padding: 1.25rem 0.5rem;
         text-align: center;
     }
-    
+
     .app-sidebar.collapsed .brand-text,
     .app-sidebar.collapsed .brand-subtitle,
     .app-sidebar.collapsed .nav-section-title,
     .app-sidebar.collapsed .nav-label,
     .app-sidebar.collapsed .collapse-text {
-        display: none; /* Hide text, leaving only icons and logo */
+        display: none;
     }
-    
+
     .app-sidebar.collapsed .chevron-icon {
         transform: rotate(180deg);
     }
-    
+
     .app-sidebar.collapsed .nav-item {
         justify-content: center;
-        padding: 12px;
-        margin: 0 8px 8px;
+        padding: 10px;
+        margin: 0 6px 4px;
     }
-    
+
     .app-sidebar.collapsed .sidebar-footer {
-        padding: 1rem 0.5rem;
+        padding: 0.75rem 0.4rem;
     }
-    
+
     .app-sidebar.collapsed .collapse-toggle-btn {
         justify-content: center;
-        padding: 10px;
+        padding: 8px;
     }
-    
+
     body.sidebar-collapsed-active .app-main {
         margin-left: var(--sidebar-collapsed-width);
     }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Mobile Slide-out Drawers Triggered
+   Mobile Sidebar
    ────────────────────────────────────────────────────────────────────────── */
 .app-sidebar.mobile-open {
     transform: translateX(0);
@@ -437,7 +450,7 @@ a:hover {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   App Main Area Layout
+   App Main Content
    ────────────────────────────────────────────────────────────────────────── */
 .app-main {
     flex: 1;
@@ -452,98 +465,89 @@ a:hover {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Flash messages Toast System
+   Flash Messages
    ────────────────────────────────────────────────────────────────────────── */
 .flash-container {
     position: fixed;
-    top: calc(var(--header-height) + 1rem);
-    right: 1.5rem;
+    top: calc(var(--header-height) + 0.75rem);
+    right: 1.25rem;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    max-width: 380px;
+    gap: 0.6rem;
+    max-width: 360px;
     width: 100%;
 }
 
 .flash-toast {
-    background-color: var(--white);
-    border-left: 4px solid var(--primary-orange);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    background-color: var(--bg-white);
+    border-left: 3px solid var(--primary-orange);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     border-radius: 8px;
-    padding: 1rem;
+    padding: 0.85rem 1rem;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
-    animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    gap: 0.75rem;
+    animation: slideIn 0.3s ease forwards;
 }
 
 .toast-message {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: var(--text-dark);
+    color: var(--text-heading);
 }
 
 .toast-close-btn {
     background: transparent;
     border: none;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 300;
     line-height: 1;
-    color: var(--text-dark-muted);
+    color: var(--text-muted);
     cursor: pointer;
-    margin-top: -2px;
 }
 
 .toast-close-btn:hover {
-    color: var(--text-dark);
+    color: var(--text-heading);
 }
 
-/* Toast Categories Variations */
 .toast-success { border-left-color: #10b981; }
 .toast-danger { border-left-color: #ef4444; }
 .toast-warning { border-left-color: #f59e0b; }
 .toast-info { border-left-color: var(--accent-teal); }
 
 @keyframes slideIn {
-    from {
-        transform: translateY(-1rem);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(-0.75rem); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Custom Components for Demo Dashboards
-   (We will use these cards & progress styles in dashboards)
+   Dashboard Components
    ────────────────────────────────────────────────────────────────────────── */
 
-/* Cards Grid Layout */
+/* Cards Grid */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
 }
 
 .app-card {
-    background-color: var(--text-white);
-    border-radius: 12px;
-    border: 1px solid var(--border-color-light);
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
     box-shadow: var(--card-shadow);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .app-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--card-shadow-hover);
 }
 
@@ -554,12 +558,12 @@ a:hover {
 }
 
 .card-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    color: var(--bg-dark);
+    color: var(--text-heading);
 }
 
-/* Progress bar UI styling */
+/* Progress bar */
 .progress-bar-container {
     width: 100%;
 }
@@ -567,23 +571,23 @@ a:hover {
 .progress-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--text-dark-muted);
-    margin-bottom: 6px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
 }
 
 .progress-track {
     width: 100%;
-    height: 8px;
-    background-color: rgba(15, 23, 42, 0.06);
+    height: 6px;
+    background-color: var(--bg-page);
     border-radius: 999px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background-color: var(--primary-orange);
+    background-color: var(--primary-blue);
     border-radius: 999px;
     transition: width 0.5s ease-out;
 }
@@ -592,12 +596,12 @@ a:hover {
     background-color: var(--accent-teal);
 }
 
-/* Badge tags */
+/* Badges */
 .badge-pill {
     display: inline-flex;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 999px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -605,109 +609,112 @@ a:hover {
 }
 
 .badge-orange {
-    background-color: rgba(245, 124, 0, 0.1);
+    background-color: var(--primary-light);
     color: var(--primary-orange);
 }
 
 .badge-teal {
-    background-color: var(--accent-teal-glow);
+    background-color: var(--accent-teal-light);
     color: var(--accent-teal);
 }
 
 .badge-grey {
-    background-color: rgba(100, 116, 139, 0.1);
-    color: var(--text-dark-muted);
+    background-color: rgba(139, 139, 163, 0.1);
+    color: var(--text-muted);
 }
 
-/* Standard Button components */
+/* Buttons */
 .btn-primary {
-    background-color: var(--primary-orange);
+    background-color: var(--primary-blue);
     color: var(--text-white);
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 0.92rem;
-    padding: 10px 20px;
+    font-size: 0.88rem;
+    padding: 8px 18px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     transition: background-color 0.2s;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-orange-hover);
+    background-color: var(--primary-blue-hover);
     color: var(--text-white);
 }
 
 .btn-secondary {
-    background-color: rgba(10, 22, 40, 0.05);
-    color: var(--bg-dark);
+    background-color: var(--bg-page);
+    color: var(--text-heading);
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 0.92rem;
-    padding: 10px 20px;
-    border: 1px solid rgba(10, 22, 40, 0.08);
+    font-size: 0.88rem;
+    padding: 8px 18px;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
+    gap: 0.4rem;
+    transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(10, 22, 40, 0.08);
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
 }
 
-/* Form layouts */
+/* Form Layouts */
 .auth-form-card {
     max-width: 440px;
-    margin: 4rem auto;
-    background-color: var(--white);
+    margin: 3rem auto;
+    background-color: var(--bg-card);
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--border-color-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.15rem;
 }
 
 .form-label {
     display: block;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--bg-dark);
-    margin-bottom: 6px;
+    color: var(--text-heading);
+    margin-bottom: 5px;
 }
 
 .form-control {
     width: 100%;
-    padding: 10px 14px;
-    border: 1px solid rgba(15, 23, 42, 0.15);
+    padding: 9px 12px;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    color: var(--text-heading);
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--bg-white);
 }
 
 .form-control:focus {
-    border-color: var(--primary-orange);
-    box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.15);
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(11, 81, 255, 0.1);
 }
 
-/* Mobile responsive breakpoints for custom dashboards */
+/* Mobile */
 @media (max-width: 576px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .app-main {
         padding: 1rem;
     }

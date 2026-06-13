@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Admin Control Console — Roadshub{% endblock %}
+{% block title %}Admin Control Console — Roadhub{% endblock %}
 
 {% block content %}
 <div class="dashboard-header" style="margin-bottom: 2rem;">
-    <h1 style="font-size: 2rem; color: var(--bg-dark);">Admin System Console</h1>
+    <h1 style="font-size: 2rem; color: var(--text-dark);">Admin System Console</h1>
     <p style="color: var(--text-dark-muted);">Oversee course catalog approvals, user credentials, and academic revenue parameters.</p>
 </div>
 
@@ -13,7 +13,7 @@
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: var(--accent-teal-glow); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: var(--accent-teal);">👥</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ users|length }}</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">{{ users|length }}</div>
             <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Total Registered</div>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: rgba(245, 124, 0, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: var(--primary-orange);">📁</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ all_courses|length }}</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">{{ all_courses|length }}</div>
             <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Total Courses</div>
         </div>
     </div>
@@ -29,7 +29,7 @@
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: #ef4444;">⌛</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ pending_courses|length }}</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">{{ pending_courses|length }}</div>
             <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Pending Approvals</div>
         </div>
     </div>
@@ -37,24 +37,24 @@
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: #10b981;">💰</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">${{ "{:,.2f}".format(revenue) }}</div>
-            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Total Revenue</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">${{ "{:,.2f}".format(revenue) }}</div>
+            <div style="font-size: 0.72rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Total Revenue</div>
         </div>
     </div>
 
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: #10b981;">📱</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">{{ "{:,.2f}".format(mpesa_revenue) }}</div>
-            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">M-Pesa (KES)</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">{{ "{:,.2f}".format(mpesa_revenue) }}</div>
+            <div style="font-size: 0.72rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">M-Pesa (KES)</div>
         </div>
     </div>
 
     <div class="app-card" style="padding: 1.25rem; flex-direction: row; align-items: center; gap: 1rem;">
         <div style="background-color: rgba(99, 102, 241, 0.1); padding: 12px; border-radius: 10px; font-size: 1.5rem; color: #6366f1;">💳</div>
         <div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--bg-dark);">${{ "{:,.2f}".format(stripe_revenue) }}</div>
-            <div style="font-size: 0.82rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Stripe (USD)</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">${{ "{:,.2f}".format(stripe_revenue) }}</div>
+            <div style="font-size: 0.72rem; color: var(--text-dark-muted); font-weight: 600; text-transform: uppercase;">Stripe (USD)</div>
         </div>
     </div>
 </div>
@@ -63,13 +63,13 @@
     
     <!-- Course Approvals Queue -->
     <div class="left-section">
-        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">Course Approvals Queue</h3>
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 1.25rem;">Course Approvals Queue</h3>
         
         <div class="approvals-queue" style="display: flex; flex-direction: column; gap: 1rem;">
             {% for course in pending_courses %}
                 <div class="app-card" style="gap: 0.75rem;">
                     <div>
-                        <h4 style="font-size: 1rem; color: var(--bg-dark); font-family: var(--font-headings);">{{ course.title }}</h4>
+                        <h4 style="font-size: 1rem; color: var(--text-dark); font-family: var(--font-headings);">{{ course.title }}</h4>
                         <p style="font-size: 0.82rem; color: var(--text-dark-muted); margin-top: 0.25rem;">Instructor: <strong>{{ course.instructor.first_name }} {{ course.instructor.last_name }}</strong></p>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-dark-muted);">{{ course.description[:100] }}...</p>
@@ -88,22 +88,22 @@
     
     <!-- Users Management Directory -->
     <div class="right-section">
-        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">User Directory</h3>
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 1.25rem;">User Directory</h3>
         
         <div class="app-card" style="overflow-x: auto; padding: 0;">
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--border-color-light); background-color: var(--bg-light);">
-                        <th style="padding: 12px 16px; color: var(--bg-dark); font-weight: 700;">Name</th>
-                        <th style="padding: 12px 16px; color: var(--bg-dark); font-weight: 700;">Email</th>
-                        <th style="padding: 12px 16px; color: var(--bg-dark); font-weight: 700;">Role</th>
-                        <th style="padding: 12px 16px; color: var(--bg-dark); font-weight: 700;">Action</th>
+                        <th style="padding: 12px 16px; color: var(--text-dark); font-weight: 700;">Name</th>
+                        <th style="padding: 12px 16px; color: var(--text-dark); font-weight: 700;">Email</th>
+                        <th style="padding: 12px 16px; color: var(--text-dark); font-weight: 700;">Role</th>
+                        <th style="padding: 12px 16px; color: var(--text-dark); font-weight: 700;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
                         <tr style="border-bottom: 1px solid var(--border-color-light);">
-                            <td style="padding: 12px 16px; font-weight: 550; color: var(--bg-dark);">
+                            <td style="padding: 12px 16px; font-weight: 550; color: var(--text-dark);">
                                 {{ user.first_name }} {{ user.last_name }}
                             </td>
                             <td style="padding: 12px 16px; color: var(--text-dark-muted);">{{ user.email }}</td>

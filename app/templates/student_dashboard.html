@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Student Dashboard — Roadshub{% endblock %}
+{% block title %}Student Dashboard — Roadhub{% endblock %}
 
 {% block content %}
 <div class="dashboard-header" style="margin-bottom: 2rem;">
-    <h1 style="font-size: 2rem; color: var(--bg-dark);">Student Dashboard</h1>
-    <p style="color: var(--text-dark-muted);">Manage your curriculum, track road design milestones, and view certifications.</p>
+    <h1 style="font-size: 2rem; color: var(--text-dark);">Student Dashboard</h1>
+    <p style="color: var(--text-dark-muted);">Manage your curriculum, track practical milestones, and view certifications.</p>
 </div>
 
 <!-- Welcome Callout Box with African Engineering Motif -->
-<div class="welcome-banner" style="background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-accent)); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2.5rem; position: relative; border-left: 5px solid var(--primary-orange); box-shadow: var(--card-shadow);">
+<div class="welcome-banner" style="background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80') center/cover; color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2.5rem; position: relative; border-left: 5px solid var(--primary-orange); box-shadow: var(--card-shadow);">
     <div class="banner-content" style="max-width: 600px;">
         <span class="badge-pill badge-teal" style="margin-bottom: 0.75rem;">Active Learner</span>
-        <h2 style="color: white; font-size: 1.6rem; margin-bottom: 0.5rem; font-family: var(--font-headings);">Habari, {{ current_user.first_name }}!</h2>
-        <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">You are enrolled in the cohort-based engineering modules. Complete your assignments to qualify for Autodesk ACP credentials.</p>
+        <h2 style="color: white; font-size: 1.6rem; margin-bottom: 0.5rem; font-family: var(--font-headings);">Welcome, {{ current_user.first_name }}!</h2>
+        <p style="color: rgba(255,255,255,0.9); font-size: 0.95rem; margin-bottom: 1.25rem;">Complete your engineering assignments to earn Roadhub credentials.</p>
         <div class="milestone-indicator" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--accent-teal);">
             <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <span>Next Live Design Review: <strong>Thursday at 16:00 UTC</strong></span>
@@ -25,7 +25,7 @@
     
     <!-- Enrolled Courses -->
     <div class="left-section">
-        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">My Active Courses</h3>
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 1.25rem;">My Active Courses</h3>
         
         {% if enrollment_data %}
             <div class="courses-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
@@ -55,7 +55,7 @@
                         
                         <!-- Cohort Milestones details -->
                         <div class="cohort-milestones" style="background-color: var(--bg-light); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color-light); font-size: 0.88rem;">
-                            <div style="font-weight: 600; color: var(--bg-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+                            <div style="font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
                                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
                                 <span>Cohort Timeline Milestones:</span>
                             </div>
@@ -91,9 +91,9 @@
     <!-- Sidebar widgets -->
     <div class="right-section">
         <!-- Certificate box -->
-        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">My Credentials</h3>
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 1.25rem;">My Credentials</h3>
         <div class="app-card" style="margin-bottom: 2rem;">
-            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--bg-dark);">Autodesk ACP Path</h4>
+            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--text-dark);">Roadhub Engineering Path</h4>
             <p style="font-size: 0.82rem; color: var(--text-dark-muted);">Complete all milestones in a cohort to receive a verified digital certificate mapping directly to Autodesk exam requirements.</p>
             
             <hr style="border: none; border-top: 1px solid var(--border-color-light); margin: 0.5rem 0;">
@@ -106,7 +106,7 @@
                                 🎓
                             </div>
                             <div>
-                                <div style="font-weight: 600; color: var(--bg-dark);">{{ cert.course.title[:30] }}...</div>
+                                <div style="font-weight: 600; color: var(--text-dark);">{{ cert.course.title[:30] }}...</div>
                                 <a href="#" style="font-size: 0.78rem; text-decoration: underline;">Code: {{ cert.certificate_code }}</a>
                             </div>
                         </div>
@@ -120,18 +120,18 @@
         </div>
 
         <!-- Payment History Box -->
-        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--bg-dark); margin-bottom: 1.25rem;">Payment History</h3>
+        <h3 style="font-family: var(--font-headings); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 1.25rem;">Payment History</h3>
         <div class="app-card" style="margin-bottom: 2rem;">
             {% if payments %}
                 <div class="payments-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
                     {% for payment in payments %}
                         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color-light);">
                             <div>
-                                <div style="font-weight: 600; color: var(--bg-dark);">{{ payment.course.title[:30] }}...</div>
+                                <div style="font-weight: 600; color: var(--text-dark);">{{ payment.course.title[:30] }}...</div>
                                 <div style="font-size: 0.78rem; color: var(--text-dark-muted);">{{ payment.created_at.strftime('%Y-%m-%d') }} | {{ payment.method | upper }}</div>
                             </div>
                             <div style="text-align: right;">
-                                <div style="font-weight: 600; color: var(--bg-dark);">{{ payment.amount }} {{ payment.currency }}</div>
+                                <div style="font-weight: 600; color: var(--text-dark);">{{ payment.amount }} {{ payment.currency }}</div>
                                 <span class="badge-pill {% if payment.status == 'confirmed' %}badge-teal{% elif payment.status == 'failed' %}badge-orange{% else %}badge-blue{% endif %}" style="font-size: 0.65rem; padding: 2px 6px;">
                                     {{ payment.status }}
                                 </span>
@@ -148,8 +148,8 @@
         
         <!-- Quick Support contacts -->
         <div class="app-card">
-            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--bg-dark);">Need Help?</h4>
-            <p style="font-size: 0.82rem; color: var(--text-dark-muted);">Speak directly with a course mentor or highway design consultant on WhatsApp.</p>
+            <h4 style="font-size: 1rem; font-family: var(--font-headings); color: var(--text-dark);">Need Help?</h4>
+            <p style="font-size: 0.82rem; color: var(--text-dark-muted);">Speak directly with a course mentor or engineering mentor on WhatsApp.</p>
             <a href="https://wa.me/254714408484" target="_blank" class="btn-secondary" style="font-size: 0.88rem; justify-content: center;">
                 💬 Chat on WhatsApp
             </a>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articles | Roadhub</title>
+  <link rel="icon" href="https://img.icons8.com/color/48/engineering.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  <style>
+    body { background-color: #f8fafc; }
+    .page-header {
+      background: #0f172a;
+      color: white;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .articles-container {
+      max-width: 1200px;
+      margin: -3rem auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+    .article-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    .article-img {
+      height: 200px;
+      background-color: #e2e8f0;
+      background-size: cover;
+      background-position: center;
+    }
+    .article-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-meta {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .article-tag {
+      background: #e0e7ff;
+      color: #4338ca;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+    .article-title {
+      font-size: 1.25rem;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .article-excerpt {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .article-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid #f1f5f9;
+    }
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+    .author-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #334155;
+    }
+    .read-more {
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .read-more:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="nav-bar">
+      <a class="brand" href="{{ url_for('main.index') }}">
+        <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span><span style="color: var(--primary);">Road</span><span style="color: var(--accent);">hub</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav" role="navigation">
+        <a href="{{ url_for('main.index') }}" class="nav-link">Home</a>
+        <a href="{{ url_for('main.index') }}#offerings" class="nav-link">Curriculum</a>
+        <a href="{{ url_for('main.index') }}#choose-path" class="nav-link">Choose Path</a>
+        <a href="{{ url_for('main.articles') }}" class="nav-link active">Article</a>
+        <a href="{{ url_for('main.community') }}" class="nav-link">Community</a>
+        <a href="{{ url_for('main.index') }}#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="login-link" href="{{ url_for('main.login') }}">Log in</a>
+        <a class="cta-button" href="{{ url_for('main.login') }}">
+          Register
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <h1>Engineering Insights</h1>
+      <p>Discover the latest industry trends, tutorials, and deep-dives into mechanical, electrical, civil, and architectural engineering.</p>
+    </section>
+
+    <div class="articles-container">
+      <!-- Article 1 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">Architecture</span>
+            <span>•</span>
+            <span>Oct 12, 2025</span>
+          </div>
+          <h2 class="article-title">The Future of Sustainable Urban Planning</h2>
+          <p class="article-excerpt">How modern architects are integrating green spaces and energy-efficient designs into rapidly growing cities to combat climate change.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=1'); background-size: cover;"></div>
+              <span class="author-name">Sarah Jenkins</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">HVAC</span>
+            <span>•</span>
+            <span>Sep 28, 2025</span>
+          </div>
+          <h2 class="article-title">Optimizing HVAC Systems for High-Rise Buildings</h2>
+          <p class="article-excerpt">A deep dive into the challenges of maintaining consistent air quality and temperature in skyscrapers, and the latest technologies solving them.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=33'); background-size: cover;"></div>
+              <span class="author-name">David Chen</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">Electrical</span>
+            <span>•</span>
+            <span>Aug 15, 2025</span>
+          </div>
+          <h2 class="article-title">Integrating Renewable Energy with Existing Grids</h2>
+          <p class="article-excerpt">Understanding the technical hurdles of merging solar and wind power with legacy electrical infrastructure.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=47'); background-size: cover;"></div>
+              <span class="author-name">Elena Rodriguez</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Article 4 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1541888087406-8d695c0dc8da?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">Civil</span>
+            <span>•</span>
+            <span>Jul 02, 2025</span>
+          </div>
+          <h2 class="article-title">Advanced Materials in Bridge Construction</h2>
+          <p class="article-excerpt">Exploring the use of ultra-high performance concrete and composite materials to extend the lifespan of critical infrastructure.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=11'); background-size: cover;"></div>
+              <span class="author-name">Marcus Johnson</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Article 5 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">BMS</span>
+            <span>•</span>
+            <span>Jun 18, 2025</span>
+          </div>
+          <h2 class="article-title">The Role of AI in Building Management Systems</h2>
+          <p class="article-excerpt">How artificial intelligence is revolutionizing the way we monitor and control building environments for maximum efficiency.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=24'); background-size: cover;"></div>
+              <span class="author-name">Anita Patel</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 6 -->
+      <article class="article-card">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="article-content">
+          <div class="article-meta">
+            <span class="article-tag">Career</span>
+            <span>•</span>
+            <span>May 05, 2025</span>
+          </div>
+          <h2 class="article-title">Transitioning from Theory to Practice</h2>
+          <p class="article-excerpt">Actionable advice for recent engineering graduates looking to land their first real-world design or supervision role.</p>
+          <div class="article-footer">
+            <div class="author-info">
+              <div class="author-avatar" style="background-image: url('https://i.pravatar.cc/100?img=59'); background-size: cover;"></div>
+              <span class="author-name">Michael Chang</span>
+            </div>
+            <a href="#" class="read-more">Read Article &rarr;</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('mainNav');
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.classList.toggle('active', open);
+    });
+  </script>
+</body>
+</html>

@@ -1,35 +1,628 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In & Register — Roadhub Premium Engineering</title>
+    <link rel="icon" href="https://img.icons8.com/color/48/engineering.png" />
+    
+    <!-- Google Fonts: Sora for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0b51ff;
+            --primary-dark: #0037d6;
+            --primary-light: #edf2ff;
+            --accent: #ff7f24;
+            --text-heading: #0f172a;
+            --text-body: #475569;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-card: #ffffff;
+            --radius-lg: 16px;
+        }
 
-{% block title %}Sign In — Roadshub Engineering Academy{% endblock %}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-{% block content %}
-<div class="auth-container" style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
-    <div class="auth-form-card" style="width: 100%; max-width: 460px; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color-light);">
-        <h2 style="font-family: var(--font-headings); font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center; color: var(--bg-dark);">Welcome Back</h2>
-        <p style="color: var(--text-dark-muted); font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">Sign in to your Roadshub engineering training account</p>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-body);
+            background: #ffffff;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            overflow-x: hidden;
+        }
+
+        /* ── LEFT HERO PANEL ── */
+        .hero-panel {
+            background: linear-gradient(135deg, #090e1a 0%, #111827 50%, #0b51ff 100%);
+            padding: 4rem 5rem;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Geometric Grid background */
+        .hero-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Glowing light blobs */
+        .hero-glow-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(11, 81, 255, 0.25) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-glow-2 {
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(255, 127, 36, 0.15) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-header {
+            position: relative;
+            z-index: 2;
+        }
+        .brand-logo {
+            text-decoration: none;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+        }
+
+        .hero-center {
+            position: relative;
+            z-index: 2;
+            margin: 4rem 0;
+            max-width: 520px;
+        }
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: rgba(255, 127, 36, 0.1);
+            padding: 0.35rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 127, 36, 0.2);
+        }
+        .hero-center h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -1px;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-center p {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #94a3b8;
+        }
+
+        /* Floating Dashboard Preview widget */
+        .preview-widget {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-top: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            animation: widgetFloat 4s ease-in-out infinite alternate;
+        }
+        @keyframes widgetFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+        .preview-widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .preview-widget-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'Sora', sans-serif;
+        }
+        .preview-widget-badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+        }
+        .preview-progress-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+        .preview-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .preview-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, #4f46e5 100%);
+            border-radius: 3px;
+        }
+        .preview-percent {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .hero-footer {
+            position: relative;
+            z-index: 2;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        /* ── RIGHT AUTH PANEL ── */
+        .auth-panel {
+            padding: 5rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* Toggle tabs */
+        .auth-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .auth-tab-btn {
+            flex: 1;
+            padding: 0.65rem 0;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .auth-tab-btn.active {
+            background: #ffffff;
+            color: var(--text-heading);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+        }
+
+        .auth-welcome {
+            margin-bottom: 2rem;
+        }
+        .auth-welcome h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.75rem;
+            color: var(--text-heading);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .auth-welcome p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* Forms box */
+        .form-pane {
+            display: none;
+        }
+        .form-pane.active {
+            display: block;
+            animation: paneFadeIn 0.35s ease forwards;
+        }
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            margin-bottom: 0.4rem;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-heading);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(11, 81, 255, 0.1);
+        }
         
-        <form action="{{ url_for('main.login') }}" method="POST">
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="role" class="form-label" style="display: block; font-size: 0.88rem; font-weight: 600; color: var(--bg-dark); margin-bottom: 0.5rem;">Select Role Access</label>
-                <select id="role" name="role" class="form-control" style="width: 100%; padding: 12px; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: 6px; font-family: var(--font-body); font-size: 0.95rem;">
-                    <option value="student">Student Portal (Kofi Mensah)</option>
-                    <option value="instructor">Instructor Portal (Amadi Okonkwo)</option>
-                    <option value="admin">Admin System Console (Elena Toure)</option>
-                </select>
-                <small style="display: block; color: var(--text-dark-muted); font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.4;">
-                    *For training review, you can log in as any role immediately. The system will auto-seed mock dashboard items.
-                </small>
-            </div>
+        select.form-input {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px;
+            padding-right: 2.5rem;
+        }
+
+        .form-hint {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.76rem;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.85rem;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(11, 81, 255, 0.22);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(11, 81, 255, 0.3);
+        }
+
+        /* Register flow success indicator */
+        .register-success-pane {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+            animation: paneFadeIn 0.35s ease forwards;
+        }
+        .success-circle {
+            width: 64px;
+            height: 64px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            border: 2px solid #22c55e;
+        }
+
+        /* Back links */
+        .back-links {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            font-size: 0.82rem;
+        }
+        .back-link-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.2s;
+        }
+        .back-link-item:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile specific logo header */
+        .mobile-brand {
+            display: none;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+            .hero-panel {
+                display: none;
+            }
+            .auth-panel {
+                padding: 4rem 2rem;
+            }
+            .mobile-brand {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── LEFT HERO PANEL ── -->
+    <div class="hero-panel">
+        <div class="hero-glow-1"></div>
+        <div class="hero-glow-2"></div>
+        
+        <div class="hero-header">
+            <a href="/" class="brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Roadhub</span>
+            </a>
+        </div>
+
+        <div class="hero-center">
+            <span class="hero-tag">START A LEARNING HABIT</span>
+            <h1>Exceptional Learning Journey</h1>
+            <p>Invest in your career with our world-class programs, carefully designed to improve your skills and capabilities. Fuel up your ambitions to excel and achieve your future goals!</p>
             
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label class="form-label" style="display: block; font-size: 0.88rem; font-weight: 600; color: var(--bg-dark); margin-bottom: 0.5rem;">Password</label>
-                <input type="password" value="••••••••••••" class="form-control" disabled style="width: 100%; padding: 12px; background-color: #f1f5f9; border: 1px solid rgba(15, 23, 42, 0.1); border-radius: 6px; cursor: not-allowed;">
+            <!-- Float widget -->
+            <div class="preview-widget">
+                <div class="preview-widget-header">
+                    <span class="preview-widget-title">Advanced Corridor Modelling</span>
+                    <span class="preview-widget-badge">Active Milestone</span>
+                </div>
+                <p style="font-size: 0.76rem; color: #94a3b8;">July cohort average readiness score:</p>
+                <div class="preview-progress-row">
+                    <div class="preview-progress-bar">
+                        <div class="preview-progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <span class="preview-percent">85%</span>
+                </div>
             </div>
-            
-            <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;">
-                Enter Dashboard &rarr;
-            </button>
-        </form>
+        </div>
+
+        <div class="hero-footer">
+            <p>&copy; 2026 Roadhub. All Rights Reserved.</p>
+        </div>
     </div>
-</div>
-{% endblock %}
+
+    <!-- ── RIGHT AUTH PANEL ── -->
+    <div class="auth-panel">
+        <div class="auth-form-container">
+            
+            <!-- Mobile Brand Logo -->
+            <div class="mobile-brand">
+                <a href="/" class="brand-logo" style="color: var(--text-heading);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span><span style="color: var(--primary);">Road</span><span style="color: var(--accent);">hub</span></span>
+                </a>
+            </div>
+
+            <!-- Tab switch selector -->
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-login-btn">Sign In</button>
+                <button class="auth-tab-btn" id="tab-register-btn">Sign Up</button>
+            </div>
+
+            <!-- Sign In Pane -->
+            <div class="form-pane active" id="login-pane">
+                <div class="auth-welcome">
+                    <h2>Welcome back</h2>
+                    <p>Glad to see you again. Log in to your account.</p>
+                </div>
+                
+                <form action="{{ url_for('main.login') }}" method="POST" id="login-form-element">
+                    <div class="form-group">
+                        <label for="role" class="form-label">Select Role Access</label>
+                        <select id="role" name="role" class="form-input">
+                            <option value="student">Student Portal (Kofi Mensah)</option>
+                            <option value="instructor">Instructor Portal (Amadi Okonkwo)</option>
+                            <option value="admin">Admin System Console (Elena Toure)</option>
+                        </select>
+                        <small class="form-hint">
+                            *For training review, you can log in as any role immediately. The system will auto-seed mock dashboard items.
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" value="••••••••••••" class="form-input" style="background:#f8fafc; color:#94a3b8; cursor:not-allowed;" disabled />
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        Sign in
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Sign Up Pane -->
+            <div class="form-pane" id="register-pane">
+                <div class="auth-welcome">
+                    <h2>Create a new account</h2>
+                    <p>Create a free account to discover your personalized learning path.</p>
+                </div>
+                
+                <form id="signup-form-element">
+                    <div class="input-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" id="reg-firstname" placeholder="Kofi" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" id="reg-lastname" placeholder="Mensah" required />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="reg-email" placeholder="kofi@mensah.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-role" class="form-label">Select Profile Track</label>
+                        <select id="reg-role" class="form-input">
+                            <option value="student">Student Portal Track</option>
+                            <option value="instructor">Instructor Portal Track</option>
+                            <option value="admin">Admin System Track</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" placeholder="••••••••" class="form-input" required />
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        Sign Up
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Sign Up Success Pane -->
+            <div class="register-success-pane" id="success-pane">
+                <div class="success-circle">✓</div>
+                <h3 style="font-family: 'Sora', sans-serif; font-size: 1.35rem; color: var(--text-heading); margin-bottom: 0.5rem;">Account Registered!</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Your Roadhub profile has been created successfully. Logging you in now...</p>
+                <div style="width: 28px; height: 28px; border: 3px solid var(--primary-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto;"></div>
+                <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+            </div>
+
+            <!-- Back links -->
+            <div class="back-links">
+                <a href="/" class="back-link-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    Back to Home
+                </a>
+                <a href="#" class="back-link-item">Forgot password?</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JS for dynamic tabs and mock signup flow -->
+    <script>
+        const tabLoginBtn = document.getElementById('tab-login-btn');
+        const tabRegisterBtn = document.getElementById('tab-register-btn');
+        const loginPane = document.getElementById('login-pane');
+        const registerPane = document.getElementById('register-pane');
+        const successPane = document.getElementById('success-pane');
+        
+        const loginForm = document.getElementById('login-form-element');
+        const signupForm = document.getElementById('signup-form-element');
+        const mainLoginFormRole = document.getElementById('role');
+
+        // Toggle Tabs
+        tabLoginBtn.addEventListener('click', () => {
+            tabLoginBtn.classList.add('active');
+            tabRegisterBtn.classList.remove('active');
+            loginPane.classList.add('active');
+            registerPane.classList.remove('active');
+            successPane.style.display = 'none';
+        });
+
+        tabRegisterBtn.addEventListener('click', () => {
+            tabRegisterBtn.classList.add('active');
+            tabLoginBtn.classList.remove('active');
+            registerPane.classList.add('active');
+            loginPane.classList.remove('active');
+            successPane.style.display = 'none';
+        });
+
+        // Signup form intercept to mock a beautiful SaaS registration workflow
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Hide signup form, show success loaders
+            registerPane.classList.remove('active');
+            successPane.style.display = 'block';
+            
+            // Auto submit standard login form using chosen role after a 1.5 second delayed seed
+            const chosenRole = document.getElementById('reg-role').value;
+            setTimeout(() => {
+                mainLoginFormRole.value = chosenRole;
+                loginForm.submit();
+            }, 1800);
+        });
+    </script>
+
+</body>
+</html>
